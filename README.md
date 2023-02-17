@@ -10,8 +10,8 @@ Currently the task involves manually ranking items by printing off pieces of pap
 - Include the record of individual rankings and group rankings (to compare quantitatively).
 
 ## Team for module KV6002:
-Jakub Wysocki
-Gabriela Piatek 
-Jack Hunter
-Rafael Ribeiro
-Olayinka Hassan
+- Jakub Wysocki
+- Gabriela Piatek 
+- Jack Hunter
+- Rafael Ribeiro
+- Olayinka Hassan
