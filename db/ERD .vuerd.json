@@ -4,7 +4,7 @@
     "width": 2000,
     "height": 2000,
     "scrollTop": 0,
-    "scrollLeft": -4,
+    "scrollLeft": -7,
     "zoomLevel": 1,
     "show": {
       "tableComment": true,
@@ -287,10 +287,10 @@
           }
         ],
         "ui": {
-          "active": true,
+          "active": false,
           "left": 836,
           "top": 214,
-          "zIndex": 7,
+          "zIndex": 6,
           "widthName": 87.72509765625,
           "widthComment": 60
         },

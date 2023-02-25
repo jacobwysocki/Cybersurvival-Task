@@ -1,0 +1,14 @@
+{
+    "null" : {
+        "~/endpoint/example/~": {
+            "methods" : ["POST"]
+        }
+    },
+    "admin" : {
+        "~/endpoint/example/~" : {
+            "methods" : ["GET", "POST"],
+            "className" : "class name that handles the endpoint",
+            "parameters": ["accepted", "parameters"]
+        }
+    }
+}
