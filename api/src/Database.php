@@ -1,6 +1,8 @@
 <?php
-    use Dotenv\Dotenv;
-    $dotenv = Dotenv::createImmutable(__DIR__);
+
+use Dotenv\Dotenv;
+
+$dotenv = Dotenv::createImmutable(__DIR__);
     $dotenv->load();
 
     abstract class Database{
