@@ -1,0 +1,28 @@
+{
+    "null" : {
+        "~/~": {
+            "methods" : ["GET"],
+            "className" : "BaseEndpoint"
+        },
+        "~/papers~":{
+            "methods" : ["GET", "OPTIONS"],
+            "className" : "PapersEndpoint",
+            "parameters" : ["track"]
+        },
+        "~/authors~":{
+            "methods" : ["GET"],
+            "className" : "AuthorsEndpoint",
+            "parameters" : ["paper_id"]
+        },
+        "~/auth$~":{
+            "methods": ["POST", "OPTIONS"],
+            "className" : "AuthEndpoint"
+        }
+    },
+    "true" : {
+        "~/papers~":{
+            "methods" : ["PUT"],
+            "className" : "PapersEndpoint"
+        }
+    }
+}
