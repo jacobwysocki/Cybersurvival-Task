@@ -1,7 +1,6 @@
 <?php
-    use Dotenv\Dotenv;
-    $dotenv = Dotenv::createImmutable(__DIR__);
-    $dotenv->load();
+// use Dotenv\Dotenv;
+
     abstract class Database{
 
         protected $connection;
@@ -12,14 +11,23 @@
         }
 
         public static function DatabaseFactory() : Database{
+            $dotenv = Dotenv\Dotenv::createImmutable("./config/");
+            $dotenv->load();
 
+            $dotenv->required('DATABASE_ENGINE')->notEmpty();
             $engine = $_ENV['DATABASE_ENGINE'];
 
             switch($engine){
                 case 'MYSQL':
+                    $dotenv->required('HOST')->notEmpty();
+                    $dotenv->required('PORT')->notEmpty();
+                    $dotenv->required('DATABASE')->notEmpty();
+                    $dotenv->required('USERNAME')->notEmpty();
+                    $dotenv->required('PASSWORD')->notEmpty();
                     return new MySQLDatabase();
                 break;
                 case "SQLITE":
+                    $dotenv->required('FILEPATH')->notEmpty();
                     return new SQLiteDatabase();
                 break;
                 default:
