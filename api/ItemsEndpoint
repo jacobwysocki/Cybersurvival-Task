@@ -10,19 +10,16 @@ class ItemsEndpoint extends Endpoint {
     }
 
     public function PUT() {
-        return $this->db->UPDATE("items", "itemsID");
+        return $this->db->UPDATE("items", "itemID", $this->request->getREQUESTBODY());
       
-      }
+    }
 
     public function POST () {
-        $itemString = $this->db->SELECT_ALL("itemString");
-        $sequenceNo = $this->db->SELECT_ALL("sequenceNo");
-    
-        $results = $this->db->UPDATE(["itemsID" => $itemsId], ["itemString" => $itemString],[ "sequenceNo" => $sequenceNo]);
-    
-        return "Behaviour was successfully added.";
+        return $this->db->POST("items", $this->request->getREQUESTBODY());
+
     }
-    public function DELATE() {
+    public function DELETE() {
+        return $this->db->DELETE("items", "itemID", $this->request->getURI()[3]);
 
     }
 }
