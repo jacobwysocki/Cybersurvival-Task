@@ -1,0 +1,28 @@
+<?php
+class ItemsEndpoint extends Endpoint {
+    public function __construct(Database $db, Request $request) {
+      parent::__construct($db, $request);
+    }
+  
+    public function GET() {
+        $results = $this->db->SELECT_ALL("items");
+         return $results;
+    }
+
+    public function PUT() {
+        return $this->db->UPDATE("items", "itemsID");
+      
+      }
+
+    public function POST () {
+        $itemString = $this->db->SELECT_ALL("itemString");
+        $sequenceNo = $this->db->SELECT_ALL("sequenceNo");
+    
+        $results = $this->db->UPDATE(["itemsID" => $itemsId], ["itemString" => $itemString],[ "sequenceNo" => $sequenceNo]);
+    
+        return "Behaviour was successfully added.";
+    }
+    public function DELATE() {
+
+    }
+}
