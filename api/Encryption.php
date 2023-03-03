@@ -4,7 +4,7 @@
  * This endpoint is used to secure the password of a user when they register
  */
 
-class passwordRegister extends \Endpoint
+class encryption extends \Endpoint
 {
     public function __construct(\Database $db, \Request $request)
     {
