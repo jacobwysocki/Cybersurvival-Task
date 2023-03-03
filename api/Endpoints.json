@@ -4,19 +4,9 @@
             "methods" : ["GET"],
             "className" : "BaseEndpoint"
         },
-        "~/papers~":{
-            "methods" : ["GET", "OPTIONS"],
-            "className" : "PapersEndpoint",
-            "parameters" : ["track"]
-        },
-        "~/authors~":{
-            "methods" : ["GET"],
-            "className" : "AuthorsEndpoint",
-            "parameters" : ["paper_id"]
-        },
-        "~/auth$~":{
-            "methods": ["POST", "OPTIONS"],
-            "className" : "AuthEndpoint"
+        "~/items~":{
+            "methods" : ["GET", "OPTIONS", "PUT", "POST", "DELETE"],
+            "className" : "ItemsEndpoint"
         }
     },
     "true" : {

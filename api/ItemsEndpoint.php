@@ -19,7 +19,6 @@ class ItemsEndpoint extends Endpoint {
 
     }
     public function DELETE() {
-        return $this->db->DELETE("items", "itemID", $this->request->getURI()[3]);
-
+        return $this->db->DELETE("items", "itemID", $this->uri[3]);
     }
 }
