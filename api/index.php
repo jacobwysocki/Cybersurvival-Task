@@ -11,21 +11,21 @@ $db = Database::DatabaseFactory();
 
 $rank = "null";
 
-if(isset($request->getHEADERS()['Authorization'])){
-    $authHeader = $request->getHEADERS()['Authorization'];
-    $authType = explode(' ', $authHeader)[0];
-    $authString = explode(' ', $authHeader)[1];
-    if($authType === "Bearer" || $authType === "bearer"){
-        // AuthEndpoint::authenticate($authString) ? $rank="true" : $rank = "null";
-    }
-}else if(isset($request->getHEADERS()['authorization'])){
-    $authHeader = $request->getHEADERS()['authorization'];
-    $authType = explode(' ', $authHeader)[0];
-    $authString = explode(' ', $authHeader)[1];
-    if($authType === "Bearer" || $authType === "bearer"){
-        // AuthEndpoint::authenticate($authString) ? $rank="true" : $rank = "null";
-    }
-}
+// if(isset($request->getHEADERS()['Authorization'])){
+//     $authHeader = $request->getHEADERS()['Authorization'];
+//     $authType = explode(' ', $authHeader)[0];
+//     $authString = explode(' ', $authHeader)[1];
+//     if($authType === "Bearer" || $authType === "bearer"){
+//         // AuthEndpoint::authenticate($authString) ? $rank="true" : $rank = "null";
+//     }
+// }else if(isset($request->getHEADERS()['authorization'])){
+//     $authHeader = $request->getHEADERS()['authorization'];
+//     $authType = explode(' ', $authHeader)[0];
+//     $authString = explode(' ', $authHeader)[1];
+//     if($authType === "Bearer" || $authType === "bearer"){
+//         // AuthEndpoint::authenticate($authString) ? $rank="true" : $rank = "null";
+//     }
+// }
 
 $endpoint = null;
 
