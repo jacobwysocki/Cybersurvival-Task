@@ -11,7 +11,7 @@ class passwordRegister extends \Endpoint
         parent::__construct($db, $request);
     }
 
-    public function getPassword($request, $response, $args)
+    public function encryptPassword($request, $response, $args)
     {
         try {
             // Get the request body data
