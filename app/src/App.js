@@ -6,6 +6,7 @@ import React, {useState, useEffect} from 'react';
 
 import HomePage from './components/HomePage';
 import Login from "./components/Login";
+import IndividualStage from './components/IndividualStage.js';
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
           <Route path="/" element={<HomePage/>}/>
           <Route path="/login" element={<Login handleAuthenticated={setAuthenticated}/>}/>
           <Route path="*" element={<p>Not Found</p>}/>
+          <Route path="individual-stage" element={<IndividualStage/>}/>
         </Routes>
       </header>
     </div>
