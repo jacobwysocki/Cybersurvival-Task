@@ -1,7 +1,5 @@
 <?php
 
-use function PHPUnit\Framework\isEmpty;
-
 class GroupEndpoint extends Endpoint{
 
     public function __construct(Database $db, Request $request) {

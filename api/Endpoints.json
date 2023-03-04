@@ -11,6 +11,10 @@
         "~/groups~" : {
             "methods" : ["POST", "GET", "DELETE"],
             "className" : "GroupEndpoint"
+        },
+        "~/experiments~":{
+            "methods" : ["POST", "GET", "PUT", "DELETE"],
+            "className" : "ExperimentsEndpoint"
         }
     },
     "true" : {

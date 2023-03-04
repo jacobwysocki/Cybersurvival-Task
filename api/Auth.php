@@ -15,7 +15,7 @@ public function __construct(Database $db, Request $request, Response $response)
 public function authenticate($request,$response, $args){
     try{
         // check for authorisation header
-        $headers = $request ->HEADERS();
+        $headers = $request->getHEADERS();
         if(!isset($headers['Authorization'])){
             throw new Exception('No authorisation header');
         }
