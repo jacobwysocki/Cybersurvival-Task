@@ -19,7 +19,7 @@ function HomePage() {
           Log in
         </Button>
         
-        <Button className="button"
+        <Button Button as={Link} to="/register" className="button"
           variant="dark"
           type="submit">
           Register

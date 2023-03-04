@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, setState, useEffect} from 'react';
+
 
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
@@ -13,79 +14,92 @@ import Alert from 'react-bootstrap/Alert';
 
 function Register(props) {
 
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [errorMessage, setErrorMessage] = useState("");
-
+    const [firstName, setFirstName] = useState(null);
+    const [lastName, setLastName] = useState(null);
+    const [email, setEmail] = useState(null);
+    const [password,setPassword] = useState(null);
+    const [confirmPassword,setConfirmPassword] = useState(null);
+    const [jobRole,setJobRole] = useState(null);
     
 
-    const handleSignOut = () => {
-        props.handleAuthenticated(false)
-        setPassword("");
-        setUsername("");
-        localStorage.removeItem('token')
-        setErrorMessage("");
+    const handleInputChange = (e) => {
+        const {id , value} = e.target;
+        if(id === "firstName"){
+            setFirstName(value);
+        }
+        if(id === "lastName"){
+            setLastName(value);
+        }
+        if(id === "email"){
+            setEmail(value);
+        }
+        if(id === "password"){
+            setPassword(value);
+        }
+        if(id === "confirmPassword"){
+            setConfirmPassword(value);
+        }
+        if(id === "jobRole"){
+            setJobRole(value);
+        }
+
     }
 
-    
+    const handleSubmit  = () => {
+        console.log(firstName,lastName,email,password,confirmPassword, jobRole);
+    }
+
 
 
     return (
-        <div>
-            {props.authenticated && <div>
-                <h1>Admin Page</h1>
-                <br/>
-                <Button className="buttonSignOut"
-                        variant="dark"
-                        type="submit"
-                        onClick={handleSignOut}>
-                    Sign out
-                </Button>
-            
-                
-                
-            </div>
-            }
-            {!props.authenticated && <div>
-                <h2>Register</h2>
-                <div className="formArea">
-                    <div className="form-container">
-                        <FloatingLabel
-                            controlId="floatingInput"
-                            label="Username"
-                            className="mb-3">
-                            <Form.Control
-                                type="text"
-                                placeholder="jakub123"
-                                />
-                        </FloatingLabel>
+        <>
+        <h1>Registration Form</h1>
+        <Form>
+        <Form.Group className="mb-3">
+            <Form.Label for="email">Email address</Form.Label>
+            <Form.Control type="email" id="email" value={email} onChange = {(e) => handleInputChange(e)} placeholder="Enter email" />
+        </Form.Group>
 
-                        <FloatingLabel
-                            controlId="floatingPassword"
-                            label="Password">
-                            <Form.Control
-                                type="password"
-                                placeholder="Password"
-                                />
-                        </FloatingLabel>
-                        <br/>
-                        {errorMessage.length > 0 ?
-                            <Alert variant="danger">
-                                {errorMessage}
-                            </Alert>
-                            : null}
+        <Form.Group className="mb-3">
+            <Form.Label for="password">Password</Form.Label>
+            <Form.Control type="password" id="password" value={password} onChange = {(e) => handleInputChange(e)} placeholder="Password" />
+            <Form.Text className="text-muted">
+            Use a strong password.
+            </Form.Text>
+        </Form.Group>
 
-                        <Button className="button"
-                                variant="dark"
-                                type="submit">
-                            Sign in
-                        </Button>
-                    </div>
-                </div>
-            </div>
-            }
-        </div>
+        <Form.Group className="mb-3">
+            <Form.Label for="confirmPassword">Password</Form.Label>
+            <Form.Control type="password" id="confirmPassword" value={confirmPassword} onChange = {(e) => handleInputChange(e)} placeholder="Confirm Password" />
+            <Form.Text className="text-muted">
+            Use a strong password.
+            </Form.Text>
+        </Form.Group>
+
+        <Form.Group className="mb-3">
+            <Form.Label>First Name</Form.Label>
+            <Form.Control type="text" value={firstName} onChange = {(e) => handleInputChange(e)} id="firstName" placeholder="Enter first name" />
+        </Form.Group>
+
+        <Form.Group className="mb-3">
+            <Form.Label for="lastName">Last Name</Form.Label>
+            <Form.Control type="text" id="lastName" value={lastName} onChange = {(e) => handleInputChange(e)} placeholder="Enter last name" />
+        </Form.Group>
+
+        <Form.Group className="mb-3">
+            <Form.Label for="jobRole">Job Role</Form.Label>
+            <Form.Control type="text" id="jobRole" value={jobRole} onChange = {(e) => handleInputChange(e)} placeholder="Enter job role" />
+        </Form.Group>
+        
+        <Button variant="dark" onClick={()=>handleSubmit()} type="submit">
+            Register
+        </Button>
+        </Form>
+        </>
     )
 }
 
 export default Register;
+
+
+        
