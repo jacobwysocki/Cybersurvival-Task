@@ -4,7 +4,7 @@
  * This endpoint is used to secure the password of a user when they register
  */
 
-class encryption extends \Endpoint
+class EncryptionEndpoint extends \Endpoint
 {
     public function __construct(\Database $db, \Request $request)
     {
@@ -26,9 +26,7 @@ class encryption extends \Endpoint
                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
                 // Save the password to the database
-                $stmt = $this->db->prepare("INSERT INTO users (password) VALUES (:password)");
-                $stmt->bindParam(':password', $hashedPassword);
-                $stmt->execute();
+                $stmt = $this->db->POST("users","$hashedPassword");
 
                 // Return a success message
                 $responseObj = new Response(200);
