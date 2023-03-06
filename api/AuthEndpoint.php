@@ -1,10 +1,11 @@
 <?php
 
 use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 /**
  * This is the authentication endpoint. It is used to authenticate a user.
  */
-class Auth extends \Endpoint
+class AuthEndpoint extends \Endpoint
 {
 private string $secretKey ='DUNNO_YET';
 public function __construct(Database $db, Request $request, Response $response)
@@ -23,23 +24,19 @@ public function authenticate($request,$response, $args){
         $authHeader = $headers['Authorization'];
         $token = str_replace('Bearer ', '', $authHeader);
         //verify  the token and retrieve the user data
-        $jwt = new Firebase\JWT\JWT;
-        $decoded = $jwt->decode($token, $this->secretKey, array('HS256'));
+        $decoded = JWT::decode ($token, new Key($this->secretKey,'HS256'));
         $username = $decoded->username;
         $password = $decoded->password;
 
         // check if the user exists
-        $stmt = $this->db->prepare("SELECT * FROM users WHERE username = :username");
-        $stmt->bindParam(':username', $username);
-        $stmt->execute();
-        $userCount = $stmt->fetchColumn();
+        $stmt = $this->db->SELECT_ONE_WHERE("users" ,"username ","$username" );
+        $userCount = $stmt->rowCount();
 
         if ($userCount=== 1) {
             //retrieve the user data
-            $stmt = $this->db->prepare("SELECT * FROM users WHERE username = :username");
-            $stmt->bindParam(':username', $username);
-            $stmt->execute();
-            $userData = $stmt->fetch();
+            $stmt = $this->db->SELECT_ONE_WHERE("users" ,"username ","$username" );
+
+            $userData = $stmt;
             // check if the password matches
             if (password_verify($password, $userData['password'])) {
                 //return a success message with a new token
