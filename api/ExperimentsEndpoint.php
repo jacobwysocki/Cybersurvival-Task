@@ -16,7 +16,8 @@ class ExperimentsEndpoint extends Endpoint{
     }
 
     public function POST(){
-        return $this->db->POST("experiments", $this->request->getREQUESTBODY());
+        print_r($this->uri);
+        // return $this->db->POST("experiments", $this->request->getREQUESTBODY());
     }
 
     public function PUT () {

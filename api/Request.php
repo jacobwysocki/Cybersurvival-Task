@@ -31,20 +31,20 @@
                 $this->REQUEST_BODY = json_decode($inputStreamData, true);
             }
             
-            if($this->HTTP_METHOD == "POST" || $this->HTTP_METHOD == "PUT"){
-                if(!isset($this->REQUEST_BODY)){
-                    new Response(400);
-                    exit;
-                }else if(!isset($this->HEADERS['Content-Length'])){
-                    new Response(411);
-                    exit;
-                }
-            }else{
-                if(isset($this->REQUEST_BODY)){
-                    new Response(400);
-                    exit;
-                }
-            }
+            // if($this->HTTP_METHOD == "POST" || $this->HTTP_METHOD == "PUT"){
+            //     if(!isset($this->REQUEST_BODY)){
+            //         new Response(400);
+            //         exit;
+            //     }else if(!isset($this->HEADERS['Content-Length'])){
+            //         new Response(411);
+            //         exit;
+            //     }
+            // }else{
+            //     if(isset($this->REQUEST_BODY)){
+            //         new Response(400);
+            //         exit;
+            //     }
+            // }
 
         }
 
