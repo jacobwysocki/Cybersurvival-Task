@@ -16,9 +16,9 @@
             "methods" : ["POST", "GET", "PUT", "DELETE"],
             "className" : "ExperimentsEndpoint"
         },
-        "~/individualResults~" :{
-            "methods" : ["POST", "GET"],
-            "className" : "individualResultsEndpoint"
+        "~/users~":{
+            "methods" : ["POST", "GET", "PUT", "DELETE"],
+            "className" : "UsersEndpoint"
         }
     },
     "true" : {
