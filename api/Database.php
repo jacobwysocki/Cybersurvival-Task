@@ -14,7 +14,7 @@
             $dotenv = Dotenv\Dotenv::createImmutable("./config/");
             $dotenv->load();
 
-            // $dotenv->required('DATABASE_ENGINE')->notEmpty();
+            $dotenv->required('DATABASE_ENGINE')->notEmpty();
             $engine = $_ENV['DATABASE_ENGINE'];
 
             switch($engine){
