@@ -14,7 +14,7 @@
             $dotenv = Dotenv\Dotenv::createImmutable("./config/");
             $dotenv->load();
 
-            $dotenv->required('DATABASE_ENGINE')->notEmpty();
+            // $dotenv->required('DATABASE_ENGINE')->notEmpty();
             $engine = $_ENV['DATABASE_ENGINE'];
 
             switch($engine){
@@ -31,7 +31,7 @@
                     return new SQLiteDatabase();
                 break;
                 default:
-                //LAUNCH ERROR BECAUSE NO DB ENGINE SPECIFIED
+                throw new databaseException("No database type selected; please specify a database type.");
             }
         }
         
@@ -44,6 +44,9 @@
         public abstract function SELECT_ONE_WHERE($resource, $field, $value);
 
         public abstract function SELECT_WHERE($resource, $params);
+
+        //GET COLUMN
+        public abstract function SELECT_COLUMN($field, $table);
 
         //POST
         public abstract function POST($resource, $resourceData);

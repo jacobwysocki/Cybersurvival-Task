@@ -32,6 +32,12 @@
             return $query->fetch(PDO::FETCH_ASSOC);
         }
 
+        public function SELECT_COLUMN($field, $table) {
+            $query = $this->connection->prepare("SELECT " . $field . " FROM " . $table);
+            $query->execute();
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        }
+
         public function SELECT_ONE_WHERE($resource, $field, $value){
             $query = "SELECT * FROM " . $resource . " WHERE " . $field . " = ?";
             $query = $this->connection->prepare($query);
