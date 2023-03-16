@@ -24,7 +24,7 @@
                 $query->execute();
                 return $query->fetchAll(PDO::FETCH_CLASS);
             }catch(PDOException $e){
-                throw new databaseException("Query error, " $e);
+                throw new databaseException($e);
             }
         }
 
@@ -36,7 +36,7 @@
                 $query->execute();
                 return $query->fetch(PDO::FETCH_ASSOC);
             }catch(PDOException $e){
-                throw new databaseException("Query error, " $e);
+                throw new databaseException($e);
             }
         }
 
@@ -46,7 +46,7 @@
                 $query->execute();
                 return $query->fetchAll(PDO::FETCH_ASSOC);
             }catch(PDOException $e){
-                throw new databaseException("Query error, " $e);
+                throw new databaseException($e);
             }
         }
 
@@ -75,7 +75,7 @@
                 $query->execute($params);
                 return $query->fetchAll(PDO::FETCH_ASSOC);
             }catch(PDOException $e){
-                throw new databaseException("Query error, " $e);
+                throw new databaseException($e);
             }
         }
 
