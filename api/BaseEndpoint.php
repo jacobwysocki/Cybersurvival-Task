@@ -5,7 +5,7 @@
         }
 
         public function GET(){
-            $var = $this->db->SELECT_ALL("table_name")[0];
+            $var = $this->db->SELECT_ALL("user")[1];
             
             return $var;
         }
