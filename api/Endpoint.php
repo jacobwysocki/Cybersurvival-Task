@@ -14,11 +14,13 @@
         protected Request $request;
         protected array $uri;
         protected array $parametersAllowed;
+        protected string $tableName;
 
-        public function __construct(Database $db, Request $request){
+        public function __construct(Database $db, Request $request, string $tableName = ""){
             $this->db = $db;
             $this->request = $request;
             $this->uri = array_filter(explode('/', $this->request->getURI()));
+            $this->tableName = $tableName;
         }
 
         /**
@@ -52,5 +54,11 @@
          * 
          */
         public function DELETE(){}
+
+        // protected function checkValidIdentifier($identifier){
+        //     isset($this->tableName);
+        //     $validIDs = $this->db->getDatabase("SELECT " . $this->tableName."ID". " from " . $this->tableName);
+        //     print_r($validIDs);
+        // }
 
     }

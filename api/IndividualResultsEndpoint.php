@@ -22,7 +22,7 @@ class IndividualResultsEndpoint extends Endpoint{
         $rankingOrder = isset($requestBody['rankingOrder']) ? $requestBody['rankingOrder'] : null;
 
         for($i = 0; $i < sizeof($rankingOrder); $i++){
-          $this->db->POST("individualResults", ["userID" => $userID, "experimentsID" => $experimentsID, "itemID" => $rankingOrder[$i]]);
+          $this->db->POST("individualResults", ["userID" => $userID, "experimentsID" => $experimentsID, "itemID" => $rankingOrder[$i]["itemID"], "orderNo" =>$i+1]);
         }
       }
 }

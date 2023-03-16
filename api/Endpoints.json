@@ -19,7 +19,10 @@
         "~/users~":{
             "methods" : ["POST", "GET", "PUT", "DELETE"],
             "className" : "UsersEndpoint"
-        }
+        },
+        "~/individualResults~" :{
+            "methods" : ["POST", "GET"],
+            "className" : "individualResultsEndpoint"}
     },
     "true" : {
         "~/papers~":{
