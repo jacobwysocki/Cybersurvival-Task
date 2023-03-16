@@ -19,7 +19,7 @@ class SQLiteDatabase extends Database{
             $query->execute();
             return $query->fetchAll(PDO::FETCH_ASSOC);
         }catch(PDOException $e){
-            throw new databaseException("Query error, " . $e);
+            throw new databaseException($e);
         }
     }
 
@@ -31,7 +31,7 @@ class SQLiteDatabase extends Database{
             $query->execute();
             return $query->fetch(PDO::FETCH_ASSOC);
         }catch(PDOException $e){
-            throw new databaseException("Query error, " $e);
+            throw new databaseException($e);
         }
     }
 
@@ -41,7 +41,7 @@ class SQLiteDatabase extends Database{
             $query->execute();
             return $query->fetchAll(PDO::FETCH_ASSOC);
         }catch(PDOException $e){
-            throw new databaseException("Query error, " $e);
+            throw new databaseException($e);
         }
     }
 
@@ -54,7 +54,7 @@ class SQLiteDatabase extends Database{
 
             return sizeof($result) === 1 ? $result[0] : false;
         }catch(PDOException $e){
-            throw new databaseException("Query error, " $e);
+            throw new databaseException($e);
         }
     }
 

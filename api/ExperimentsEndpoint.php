@@ -1,5 +1,7 @@
 <?php
 
+// include("WebSocketServer/index.php");
+
 class ExperimentsEndpoint extends Endpoint{
     public function __construct(Database $db, Request $request) {
         parent::__construct($db, $request, "experiments");
@@ -37,7 +39,14 @@ class ExperimentsEndpoint extends Endpoint{
     }
 
     public function PUT () {
+        $data = $this->request->getREQUESTBODY();
+        // $decodedData = json_decode($data, true);
+        echo $data["isRunning"];
+        if($data["isRunning"]===1){
+            // exec("/opt/homebrew/bin/php -f /WebSocketServer/index.php  > /dev/null &");
+        }else echo "false";
         return $this->db->UPDATE($this->tableName, $this->tableName."ID", $this->request->getREQUESTBODY());
+        //ON UPDATE TO 'RUNNING' THE WEBSOCKET SERVER SHOULD START
 
     }
     public function DELETE() {
