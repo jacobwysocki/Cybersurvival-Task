@@ -24,7 +24,38 @@ function Register(props) {
     const [password,setPassword] = useState(null);
     const [confirmPassword,setConfirmPassword] = useState(null);
     const [jobRole,setJobRole] = useState(null);
+    const [formData, setFormData] = useState({
+        firstName:'',
+        lastName:'',
+        email:'',
+        password:''
+    });
+
+    const handleSubmit = () => {
+        const data = new FormData();
+        data.append('firstName', firstName);
+        data.append('lastName', lastName);
+        data.append('email', email);
+        data.append('password', password);
+        data.append('confirmPassword', confirmPassword);
+        data.append('jobRole', jobRole);
     
+        
+        fetch('http://localhost/api/register.php', {
+            method: 'POST',
+            body: {data},
+        })
+            .then((response) => response.text())
+            .then((data) => {
+                console.log(data);
+                
+            })
+            .catch((error) => {
+                console.error(error);
+                
+            });
+            console.log({data});
+    };
 
     const handleInputChange = (e) => {
         const {id , value} = e.target;
@@ -49,9 +80,7 @@ function Register(props) {
 
     }
 
-    const handleSubmit  = () => {
-        console.log(firstName,lastName,email,password,confirmPassword, jobRole);
-    }
+    
 
 
 
@@ -104,7 +133,7 @@ function Register(props) {
         </Col>
         
       </Row>    
-        <Button as={Link} to="/login" variant="dark" onClick={()=>handleSubmit()} type="submit" >
+        <Button variant="dark" onClick={()=>handleSubmit()} type="submit" >
             Register
         </Button>
         </Form>

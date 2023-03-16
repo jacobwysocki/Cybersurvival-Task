@@ -5,7 +5,6 @@ header("Access-Control-Allow-Origin: *");
 
 $request = new Request();
 
-
 $file = json_decode(file_get_contents("./Endpoints.json"), true);
 $db = Database::DatabaseFactory();
 

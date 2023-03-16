@@ -14,33 +14,48 @@ class SQLiteDatabase extends Database{
     }
 
     public function SELECT_ALL($resource){
-        $query = $this->connection->prepare("SELECT * FROM " . $resource);
-        $query->execute();
-        return $query->fetchAll(PDO::FETCH_ASSOC);
+            $query = $this->connection->prepare("SELECT * FROM " . $resource);
+        try{
+            $query->execute();
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        }catch(PDOException $e){
+            throw new databaseException($e);
+        }
     }
 
     public function SELECT_ONE($resource, $primaryKey, $id){
         $query = $this->connection->prepare("SELECT * FROM ".$resource." 
                                                         WHERE ".$primaryKey." = ?");
         $query->bindParam(1, $id);
-        $query->execute();
-        return $query->fetch(PDO::FETCH_ASSOC);
+        try{
+            $query->execute();
+            return $query->fetch(PDO::FETCH_ASSOC);
+        }catch(PDOException $e){
+            throw new databaseException($e);
+        }
     }
 
     public function SELECT_COLUMN($field, $table) {
         $query = $this->connection->prepare("SELECT " . $field . " FROM " . $table);
-        $query->execute();
-        return $query->fetchAll(PDO::FETCH_ASSOC);
+        try{
+            $query->execute();
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        }catch(PDOException $e){
+            throw new databaseException($e);
+        }
     }
 
     public function SELECT_ONE_WHERE($resource, $field, $value){
-        $query = "SELECT * FROM " . $resource . " WHERE " . $field . " = ?";
-        $query = $this->connection->prepare($query);
+        $query = $this->connection->prepare("SELECT * FROM " . $resource . " WHERE " . $field . " = ?");
         $query->bindParam(1, $value);
-        $query->execute();
-        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        try{
+            $query->execute();
+            $result = $query->fetchAll(PDO::FETCH_ASSOC);
 
-        return sizeof($result) === 1 ? $result[0] : false;
+            return sizeof($result) === 1 ? $result[0] : false;
+        }catch(PDOException $e){
+            throw new databaseException($e);
+        }
     }
 
     public function SELECT_WHERE($resource, $params){
