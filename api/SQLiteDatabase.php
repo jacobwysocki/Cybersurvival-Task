@@ -45,6 +45,22 @@ class SQLiteDatabase extends Database{
         }
     }
 
+    public function SELECT_COLUMN_WHERE($field1, $table, $field2, $value) {
+        $query = $this->connection->prepare("SELECT " . $field1 . " FROM " . $table . 
+        " WHERE " . $field2 . " = ?");
+        $query->bindParam(1, $value);
+        try {
+            $query->execute();
+            $result = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            return sizeof($result) === 1 ? $result[0] : false;
+        }catch(PDOException $e){
+            throw new databaseException($e);
+        }
+    }
+    // the above is designed to take 2 fields from the same table as arguments
+    // e.g SELECT email FROM users WHERE userID = value
+
     public function SELECT_ONE_WHERE($resource, $field, $value){
         $query = $this->connection->prepare("SELECT * FROM " . $resource . " WHERE " . $field . " = ?");
         $query->bindParam(1, $value);
