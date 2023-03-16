@@ -20,22 +20,34 @@
 
         public function SELECT_ALL($resource){
             $query = $this->connection->prepare("SELECT * FROM " . $resource);
-            $query->execute();
-            return $query->fetchAll(PDO::FETCH_CLASS);
+            try {
+                $query->execute();
+                return $query->fetchAll(PDO::FETCH_CLASS);
+            }catch(PDOException $e){
+                throw new databaseException("Query error, " $e);
+            }
         }
 
         public function SELECT_ONE($resource, $primaryKey, $id){
             $query = $this->connection->prepare("SELECT * FROM ".$resource." 
                                                             WHERE ".$primaryKey." = ?");
             $query->bindParam(1, $id);
-            $query->execute();
-            return $query->fetch(PDO::FETCH_ASSOC);
+            try {
+                $query->execute();
+                return $query->fetch(PDO::FETCH_ASSOC);
+            }catch(PDOException $e){
+                throw new databaseException("Query error, " $e);
+            }
         }
 
         public function SELECT_COLUMN($field, $table) {
             $query = $this->connection->prepare("SELECT " . $field . " FROM " . $table);
-            $query->execute();
-            return $query->fetchAll(PDO::FETCH_ASSOC);
+            try {
+                $query->execute();
+                return $query->fetchAll(PDO::FETCH_ASSOC);
+            }catch(PDOException $e){
+                throw new databaseException("Query error, " $e);
+            }
         }
 
         public function SELECT_ONE_WHERE($resource, $field, $value){
@@ -59,8 +71,12 @@
             }
 
             $query = $this->connection->prepare($query);
-            $query->execute($params);
-            return $query->fetchAll(PDO::FETCH_ASSOC);
+            try {
+                $query->execute($params);
+                return $query->fetchAll(PDO::FETCH_ASSOC);
+            }catch(PDOException $e){
+                throw new databaseException("Query error, " $e);
+            }
         }
 
         public function POST($resource, $resourceData){
