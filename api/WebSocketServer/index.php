@@ -24,11 +24,8 @@ class MyChat implements MessageComponentInterface {
     }
 
     public function onOpen(ConnectionInterface $conn) {
-        // $this->clients->attach($conn);
-        $socket_name = "{$conn->resourceId}@{$conn->WebSocket->request->getHeader('X-Forwarded-For')}";
-        $this->clients->attach($conn,$socket_name);
-        $this->clientids[$socket_name] = $conn;
-        echo $socket_name;
+        $this->clients->attach($conn);
+        echo($conn->httpRequest->getUri()->getQuery());
     }
 
     public function onMessage(ConnectionInterface $from, $msg) {
