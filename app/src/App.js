@@ -8,7 +8,7 @@ import HomePage from './components/HomePage';
 import Login from "./components/Login";
 import Register from "./components/Register";
 import IndividualStage from './components/IndividualStage.js';
-
+import AdminItems from './components/AdminItems.js';
 function App() {
 
 
@@ -27,6 +27,7 @@ function App() {
           <Route path="/register" element={<Register handleAuthenticated={setAuthenticated}/>}/>
           {/* <Route path="*" element={<p>Not Found</p>}/> */}
           <Route path="/individual-stage" element={<IndividualStage/>}/>
+          <Route path="/AdminItems" element={<AdminItems/>}/>
         </Routes>
       </header>
     </div>
