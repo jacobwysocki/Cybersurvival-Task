@@ -20,6 +20,10 @@
             "methods" : ["POST", "GET", "PUT", "DELETE"],
             "className" : "UsersEndpoint"
         },
+        "~/auth~":{
+            "methods" : ["POST"],
+            "className" : "AuthEndpoint"
+        },
         "~/individualResults~" :{
             "methods" : ["POST", "GET"],
             "className" : "individualResultsEndpoint"}

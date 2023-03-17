@@ -5,7 +5,7 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
-import {Link} from "react-router-dom";
+import {json, Link} from "react-router-dom";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -24,37 +24,24 @@ function Register(props) {
     const [password,setPassword] = useState(null);
     const [confirmPassword,setConfirmPassword] = useState(null);
     const [jobRole,setJobRole] = useState(null);
-    const [formData, setFormData] = useState({
-        firstName:'',
-        lastName:'',
-        email:'',
-        password:''
-    });
+    
 
     const handleSubmit = () => {
-        const data = new FormData();
-        data.append('firstName', firstName);
-        data.append('lastName', lastName);
-        data.append('email', email);
-        data.append('password', password);
-        data.append('confirmPassword', confirmPassword);
-        data.append('jobRole', jobRole);
+        console.log(firstName,lastName,email,password,confirmPassword, jobRole);
+        
     
         
         fetch('http://localhost/api/register.php', {
             method: 'POST',
-            body: {data},
+            body: JSON.stringify({"firstName":firstName, "lastName":lastName, "email":email, "password":password, "jobRole":jobRole}),
         })
             .then((response) => response.text())
-            .then((data) => {
-                console.log(data);
-                
-            })
+            .then((text) => console.log(text))
             .catch((error) => {
                 console.error(error);
                 
             });
-            console.log({data});
+            console.log();
     };
 
     const handleInputChange = (e) => {
@@ -133,11 +120,17 @@ function Register(props) {
         </Col>
         
       </Row>    
-        <Button variant="dark" onClick={()=>handleSubmit()} type="submit" >
+        <Button variant="dark" onClick={handleSubmit} >
             Register
         </Button>
         </Form>
     </Container>
+            {/* <form>
+                <input type="text"></input>
+                <Button variant="dark" onClick={handleSubmit} >
+                    Register
+                </Button>
+            </form> */}
         </div>
         
 
