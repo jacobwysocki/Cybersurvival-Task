@@ -7,8 +7,8 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 
 require __DIR__ . '/DatabaseTwo.php';
-$db_connection = new DatabaseTwo();
-$conn = $db_connection->dbConnection();
+$db = new DatabaseTwo('../db/db.sqlite');
+
 
 function msg($success, $status, $message, $extra = [])
 {
@@ -67,7 +67,7 @@ else :
         try {
 
             $check_email = "SELECT `email` FROM `users` WHERE `email`=:email";
-            $check_email_stmt = $conn->prepare($check_email);
+            $check_email_stmt = $db->dbConnection->prepare($check_email);
             $check_email_stmt->bindValue(':email', $email, PDO::PARAM_STR);
             $check_email_stmt->execute();
 
@@ -77,7 +77,7 @@ else :
             else :
                 $insert_query = "INSERT INTO `users`(`firstName`,`lastName`,`email`,`jobRole`,`password`) VALUES(:firstName, :lastName, :email, :jobRole, :password)";
 
-                $insert_stmt = $conn->prepare($insert_query);
+                $insert_stmt = $db->dbConnection->prepare($insert_query);
 
                 // DATA BINDING
                 $insert_stmt->bindValue(':firstName', htmlspecialchars(strip_tags($firstName)), PDO::PARAM_STR);

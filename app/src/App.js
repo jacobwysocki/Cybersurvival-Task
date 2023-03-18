@@ -23,7 +23,7 @@ function App() {
         
         <Routes>
           <Route path="/" element={<HomePage/>}/>
-          <Route path="/login" element={<Login handleAuthenticated={setAuthenticated}/>}/>
+          <Route path="/login" element={<Login handleAuthenticated={setAuthenticated} authenticated={authenticated}/>}/>
           <Route path="/register" element={<Register handleAuthenticated={setAuthenticated}/>}/>
           {/* <Route path="*" element={<p>Not Found</p>}/> */}
           <Route path="/individual-stage" element={<IndividualStage/>}/>

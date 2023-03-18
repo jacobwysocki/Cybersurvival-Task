@@ -22,7 +22,7 @@
         },
         "~/auth~":{
             "methods" : ["POST"],
-            "className" : "AuthEndpoint"
+            "className" : "Authenticate"
         },
         "~/individualResults~" :{
             "methods" : ["POST", "GET"],

@@ -69,7 +69,7 @@ else:
 
                     $jwt = new JwtHandler();
                     $token = $jwt->jwtEncodeData(
-                        'http://localhost/api/',
+                        'http://localhost/api/users',
                         array("userID"=> $row['userID'])
                     );
                     
@@ -87,6 +87,7 @@ else:
             // IF THE USER IS NOT FOUND BY EMAIL THEN SHOW THE FOLLOWING ERROR
             else:
                 $returnData = msg(0,422,'Invalid Email Address!');
+                echo($email);
             endif;
         }
         catch(PDOException $e){

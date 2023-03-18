@@ -17,9 +17,6 @@ function Login(props) {
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
 
-    
-
-/*
     useEffect(
         () => {
             if (localStorage.getItem('token')) {
@@ -42,7 +39,7 @@ function Login(props) {
         ).toString('base64');
 
 
-        fetch("",
+        fetch("http://localhost/api/auth",
             {
                 method: 'POST',
                 headers: new Headers({"Authorization": "Basic " + encodedString})
@@ -68,7 +65,7 @@ function Login(props) {
                 }
             )
     }
-    */
+
 
     const handleSignOut = () => {
         props.handleAuthenticated(false)
@@ -92,33 +89,23 @@ function Login(props) {
                         onClick={handleSignOut}>
                     Sign out
                 </Button>
-            
-                
-                
+
             </div>
             }
             {!props.authenticated && <div>
                 <h2>Sign in</h2>
                 <div className="formArea">
                     <div className="form-container">
-                        <FloatingLabel
-                            controlId="floatingInput"
-                            label="Username"
-                            className="mb-3">
                             <Form.Control
                                 type="text"
-                                placeholder="jakub123"
-                                />
-                        </FloatingLabel>
+                                placeholder="Email"
+                                onChange={handleUsername}/>
 
-                        <FloatingLabel
-                            controlId="floatingPassword"
-                            label="Password">
                             <Form.Control
                                 type="password"
                                 placeholder="Password"
-                                />
-                        </FloatingLabel>
+                                onChange={handlePassword}/>
+
                         <br/>
                         {errorMessage.length > 0 ?
                             <Alert variant="danger">
@@ -128,7 +115,9 @@ function Login(props) {
 
                         <Button className="button"
                                 variant="dark"
-                                type="submit">
+                                type="submit"
+                                onClick={handleSubmit}
+                                disabled={!username || !password}>
                             Sign in
                         </Button>
                     </div>
