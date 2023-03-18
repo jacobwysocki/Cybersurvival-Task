@@ -4,6 +4,8 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
+import { Buffer } from 'buffer';
+
 
 /**
  * Login component.
@@ -33,6 +35,7 @@ function Login(props) {
         setPassword(event.target.value);
     }
 
+
     const handleSubmit = () => {
         const encodedString = Buffer.from(
             username + ":" + password
@@ -42,7 +45,7 @@ function Login(props) {
         fetch("http://localhost/api/auth",
             {
                 method: 'POST',
-                headers: new Headers({"Authorization": "Basic " + encodedString})
+                headers: new Headers( { "Authorization": "Basic " +encodedString })
             })
             .then(
                 (response) => {
@@ -51,10 +54,11 @@ function Login(props) {
             )
             .then(
                 (json) => {
-                    if (json.message === "Success") {
+                    if (json.message === "Successfully logged in") {
                         props.handleAuthenticated(true);
                         localStorage.setItem('token', json.data.token);
-                    } else if (json.message === "Invalid Credentials.") {
+                    }
+                    else if (json.message === "Invalid Credentials.") {
                         setErrorMessage("Invalid Username or Password")
                     }
                 }
@@ -74,8 +78,6 @@ function Login(props) {
         localStorage.removeItem('token')
         setErrorMessage("");
     }
-
-    
 
 
     return (

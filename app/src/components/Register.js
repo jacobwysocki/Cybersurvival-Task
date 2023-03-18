@@ -31,7 +31,8 @@ function Register(props) {
         
     
         
-        fetch('http://localhost/api/register.php', {
+        fetch('http://localhost/api/register.php',
+            {
             method: 'POST',
             body: JSON.stringify({"firstName":firstName, "lastName":lastName, "email":email, "password":password, "jobRole":jobRole}),
         })

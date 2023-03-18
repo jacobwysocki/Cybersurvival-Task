@@ -50,19 +50,37 @@ class Authenticate extends EndpointTwo
 
     private function validateAuthParameters() {
         if ( empty($_SERVER['PHP_AUTH_USER']) || empty($_SERVER['PHP_AUTH_PW']) ) {
-            throw new ClientErrorException("Username and Password Required.", 401);
+            $errorResponse = array(
+                "status" => "error",
+                "message" => "Username and Password are required."
+            );
+            http_response_code(401);
+            echo json_encode($errorResponse);
+            exit;
         }
     }
 
     private function validateUsername($data) {
         if (count($data)<1) {
-            throw new ClientErrorException("Invalid Credentials.", 401);
+            $errorResponse = array(
+                "status" => "error",
+                "message" => "Invalid Credentials."
+            );
+            http_response_code(401);
+            echo json_encode($errorResponse);
+            exit;
         }
     }
 
     private function validatePassword($data) {
         if (!password_verify($_SERVER['PHP_AUTH_PW'], $data[0]['password'])) {
-            throw new ClientErrorException("Invalid Credentials.", 401);
+            $errorResponse = array(
+                "status" => "error",
+                "message" => "Invalid Credentials."
+            );
+            http_response_code(401);
+            echo json_encode($errorResponse);
+            exit;
         }
     }
 
