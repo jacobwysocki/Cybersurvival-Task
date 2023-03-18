@@ -9,6 +9,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import IndividualStage from './components/IndividualStage.js';
 import AdminItems from './components/AdminItems.js';
+import SecInfoPage from "./components/SecInfo";
 function App() {
 
 
@@ -28,6 +29,7 @@ function App() {
           {/* <Route path="*" element={<p>Not Found</p>}/> */}
           <Route path="/individual-stage" element={<IndividualStage/>}/>
           <Route path="/AdminItems" element={<AdminItems/>}/>
+          <Route path="/SecInfo" element={<SecInfoPage/>}/>
         </Routes>
       </header>
     </div>
