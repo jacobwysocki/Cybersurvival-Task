@@ -12,11 +12,11 @@ $db = new DatabaseTwo('../db/db.sqlite');
 
 function msg($success, $status, $message, $extra = [])
 {
-    return array_merge([
+    return array(
         'success' => $success,
         'status' => $status,
         'message' => $message
-    ], $extra);
+    , $extra);
 }
 
 // DATA FORM REQUEST
