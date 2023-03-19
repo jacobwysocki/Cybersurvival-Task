@@ -1,6 +1,5 @@
 import '../App.css';
-import {Link} from "react-router-dom";
-import Button from 'react-bootstrap/Button';
+import React from "react";
 /**
  * SecInfo.
  * This component is used to display the security information of  the application.
@@ -11,6 +10,12 @@ function SecInfoPage(){
     return (
         <div className="container mt-5">
             <h1 className="text-center mb-5">Security Information</h1>
+            <div>
+                <p> When using a web app, it is essential to
+                    follow security best practices to protect your personal information and ensure a
+                    safe online experience.
+                    Here are some key security tips to keep in mind</p>
+            </div>
             <div>
                 <h2> Use Strong Passwords</h2>
                 <p>
@@ -40,7 +45,13 @@ function SecInfoPage(){
                     connection and protect your data.
                 </p>
             </div>
-
+            <div>
+                <h2> Log out after use</h2>
+                <p>
+                    Always log out of your accounts when you are finished,
+                    especially on shared or public devices.
+                </p>
+            </div>
         </div>
     );
 
