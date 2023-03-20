@@ -12,6 +12,32 @@ use FirebaseJWT\JWT;
 
 class Authenticate extends EndpointTwo
 {
+    private array $userData;
+
+    public function authenticate(){
+        $db = new DatabaseTwo('../db/db.sqlite');
+
+        $data = $db->executeSQL("SELECT * FROM users WHERE email = " . htmlspecialchars($_SERVER['PHP_AUTH_USER']));
+        
+        if($data == null){
+            return false;
+        };
+
+        $passwordHash = $data["passwordHash"];
+
+        if(password_verify($_SERVER['PHP_AUTH_PASS'], $passwordHash)){
+            $this->userData = $data;
+            return true;
+        }else return false;
+    }
+
+    public function getRank(){
+        $db = new DatabaseTwo('../db/db.sqlite');
+        $rankID = $this->userData["rankID"];
+        assert(is_numeric($rankID));
+        return $db->executeSQL("SELECT rankName FROM UserRank WHERE rankID = ". $rankID);
+    }
+
     public function __construct() {
 
     }
@@ -31,7 +57,6 @@ class Authenticate extends EndpointTwo
         // Validate the username and password
         $this->validateUsername($queryResult);
         $this->validatePassword($queryResult);
-
         $data['token'] = $this -> createJWT($queryResult);
 
         return array(

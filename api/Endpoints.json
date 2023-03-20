@@ -28,10 +28,10 @@
             "methods" : ["POST", "GET"],
             "className" : "individualResultsEndpoint"}
     },
-    "true" : {
+    "admin" : {
         "~/papers~":{
-            "methods" : ["PUT"],
-            "className" : "PapersEndpoint"
+            "methods" : ["GET"],
+            "className" : "BaseEndpoint"
         }
     }
 }

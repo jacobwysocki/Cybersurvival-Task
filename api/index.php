@@ -14,7 +14,15 @@ $db = Database::DatabaseFactory();
 
 $rank = "null";
 
-//need to enter the rank here
+$auth = new Authenticate();
+if(isset($auth)){
+    if($auth->authenticate()){
+        $rank = $auth->getRank();
+    }else{
+        new Response(401);
+        exit();
+    }
+}
 
 $endpoint = null;
 
