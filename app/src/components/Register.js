@@ -29,10 +29,6 @@ function Register(props) {
     const navigate = useNavigate();
 
 
-
-
-
-
     const handleSubmit = () => {
         console.log(firstName,lastName,email,password,confirmPassword, jobRole);
         if(password !== confirmPassword){
@@ -80,9 +76,6 @@ function Register(props) {
                     console.error(error);
                 });
         }
-
-
-
     };
 
     const handleInputChange = (e) => {
@@ -108,9 +101,6 @@ function Register(props) {
 
     }
 
-    
-
-
 
     return (
         <>
@@ -121,13 +111,13 @@ function Register(props) {
         <Row>
         <Col><Form.Group className="mb-3">
             <Form.Label>First Name</Form.Label>
-            <Form.Control type="text"  onChange = {(e) => handleInputChange(e)} id="firstName" placeholder="Enter first name" />
+            <Form.Control type="text" onChange = {(e) => handleInputChange(e)} id="firstName" placeholder="Enter first name" />
         </Form.Group>
         </Col>
 
         <Col><Form.Group className="mb-3">
-            <Form.Label for="lastName">Last Name</Form.Label>
-            <Form.Control type="text" id="lastName"  onChange = {(e) => handleInputChange(e)} placeholder="Enter last name" />
+            <Form.Label>Last Name</Form.Label>
+            <Form.Control type="text" id="lastName" onChange = {(e) => handleInputChange(e)} placeholder="Enter last name" />
         </Form.Group>
         </Col>
 
@@ -135,27 +125,27 @@ function Register(props) {
 
       <Row>
       <Form.Group className="mb-3">
-            <Form.Label for="jobRole">Job Role</Form.Label>
-            <Form.Control type="text" id="jobRole"  onChange = {(e) => handleInputChange(e)} placeholder="Enter job role" />
+            <Form.Label>Job Role</Form.Label>
+            <Form.Control type="text" id="jobRole" onChange = {(e) => handleInputChange(e)} placeholder="Enter job role" />
         </Form.Group>
 
         <Col><Form.Group className="mb-3">
-            <Form.Label for="email">Email address</Form.Label>
-            <Form.Control type="email" id="email"  onChange = {(e) => handleInputChange(e)} placeholder="Enter email" />
+            <Form.Label>Email address</Form.Label>
+            <Form.Control type="email" id="email" onChange = {(e) => handleInputChange(e)} placeholder="Enter email" />
         </Form.Group>
         
 
         <Form.Group className="mb-3">
-            <Form.Label for="password">Password</Form.Label>
-            <Form.Control type="password" id="password"  onChange = {(e) => handleInputChange(e)} placeholder="Password" />
+            <Form.Label>Password</Form.Label>
+            <Form.Control type="password" id="password" onChange = {(e) => handleInputChange(e)} placeholder="Password" />
             <Form.Text className="text-muted">
             Use a strong password.
             </Form.Text>
         </Form.Group>
         
         <Form.Group className="mb-3">
-            <Form.Label for="confirmPassword">Confirm Password</Form.Label>
-            <Form.Control type="password" id="confirmPassword"  onChange = {(e) => handleInputChange(e)} placeholder="Confirm Password" />
+            <Form.Label>Confirm Password</Form.Label>
+            <Form.Control type="password" id="confirmPassword" onChange = {(e) => handleInputChange(e)} placeholder="Confirm Password" />
         </Form.Group>
 
         </Col>

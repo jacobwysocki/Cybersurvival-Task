@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
-
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 import { Buffer } from 'buffer';
+import {Routes, Route, Navigate} from 'react-router-dom';
 
 
 /**
@@ -83,15 +83,7 @@ function Login(props) {
     return (
         <div>
             {props.authenticated && <div>
-                <h1>Admin Page</h1>
-                <br/>
-                <Button className="buttonSignOut"
-                        variant="dark"
-                        type="submit"
-                        onClick={handleSignOut}>
-                    Sign out
-                </Button>
-
+                <Navigate replace to="/dashboard"/>
             </div>
             }
             {!props.authenticated && <div>

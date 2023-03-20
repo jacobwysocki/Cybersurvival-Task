@@ -10,6 +10,9 @@ import Register from "./components/Register";
 import IndividualStage from './components/IndividualStage.js';
 import AdminItems from './components/AdminItems.js';
 import SecInfoPage from "./components/SecInfo";
+import Dashboard from "./components/Dashboard";
+import AdminUsers from "./components/AdminUsers";
+
 function App() {
 
 
@@ -30,6 +33,8 @@ function App() {
           <Route path="/individual-stage" element={<IndividualStage/>}/>
           <Route path="/AdminItems" element={<AdminItems/>}/>
           <Route path="/SecInfo" element={<SecInfoPage/>}/>
+          <Route path="/dashboard" element={<Dashboard handleAuthenticated={setAuthenticated} authenticated={authenticated}/>}/>
+          <Route path="/adminUsers" element={<AdminUsers handleAuthenticated={setAuthenticated} authenticated={authenticated}/>}/>
         </Routes>
       </header>
     </div>
