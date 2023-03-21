@@ -33,14 +33,16 @@ elseif (
     || !isset($data->email)
     || !isset($data->jobRole)
     || !isset($data->password)
+    || !isset($data->rankID)
     || empty(trim($data->firstName))
     || empty(trim($data->lastName))
     || empty(trim($data->email))
     || empty(trim($data->jobRole))
     || empty(trim($data->password))
+    || empty(trim($data->rankID))
 ) :
 
-    $fields = ['fields' => ['firstName', 'lastName', 'email', 'password', 'jobRole']];
+    $fields = ['fields' => ['firstName', 'lastName', 'email', 'password', 'jobRole', 'rankID']];
     $returnData = msg(0, 422, 'Please Fill in all Required Fields!', $fields);
 
 // IF THERE ARE NO EMPTY FIELDS THEN-
@@ -51,6 +53,7 @@ else :
     $email = trim($data->email);
     $jobRole = trim($data->jobRole);
     $password = trim($data->password);
+    $rankID = trim($data->rankID);
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) :
         $returnData = msg(0, 422, 'Invalid Email Address!');
 
@@ -75,7 +78,7 @@ else :
                 $returnData = msg(0, 422, 'This E-mail already in use!');
 
             else :
-                $insert_query = "INSERT INTO `users`(`firstName`,`lastName`,`email`,`jobRole`,`password`) VALUES(:firstName, :lastName, :email, :jobRole, :password)";
+                $insert_query = "INSERT INTO `users`(`firstName`,`lastName`,`email`,`jobRole`,`password`, `rankID`) VALUES(:firstName, :lastName, :email, :jobRole, :password, :rankID)";
 
                 $insert_stmt = $db->dbConnection->prepare($insert_query);
 
@@ -85,6 +88,7 @@ else :
                 $insert_stmt->bindValue(':email', $email, PDO::PARAM_STR);
                 $insert_stmt->bindValue(':jobRole', $jobRole, PDO::PARAM_STR);
                 $insert_stmt->bindValue(':password', password_hash($password, PASSWORD_DEFAULT), PDO::PARAM_STR);
+                $insert_stmt->bindValue(':rankID', $rankID, PDO::PARAM_STR);
 
                 $insert_stmt->execute();
 

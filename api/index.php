@@ -18,6 +18,7 @@ $auth = new Authenticate();
 if(isset($auth)){
     if($auth->authenticate()){
         $rank = $auth->getRank();
+        $rank = $rank[0]["rankName"];
     }else{
         new Response(401);
         exit();
@@ -25,7 +26,6 @@ if(isset($auth)){
 }
 
 $endpoint = null;
-
 foreach(array_keys($file[$rank]) as $route){
     if (preg_match($route, $request->getURI())){
         $endpoint = $route;

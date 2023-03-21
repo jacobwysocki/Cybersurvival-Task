@@ -17,25 +17,30 @@ class Authenticate extends EndpointTwo
     public function authenticate(){
         $db = new DatabaseTwo('../db/db.sqlite');
 
-        $data = $db->executeSQL("SELECT * FROM users WHERE email = " . htmlspecialchars($_SERVER['PHP_AUTH_USER']));
-        
-        if($data == null){
+        $data = $db->executeSQL("SELECT * FROM users WHERE email = ?", [htmlspecialchars($_SERVER['PHP_AUTH_USER'])]);
+
+        if(empty($data)){
             return false;
         };
 
-        $passwordHash = $data["passwordHash"];
+        $passwordHash = $data[0]["password"];
 
-        if(password_verify($_SERVER['PHP_AUTH_PASS'], $passwordHash)){
-            $this->userData = $data;
+        if(password_verify($_SERVER['PHP_AUTH_PW'], $passwordHash)){
+            $this->userData = $data[0];
             return true;
         }else return false;
     }
 
+
     public function getRank(){
+        if(!isset($this->userData["rankID"])){
+            // rankID key not present in userData array
+            return false;
+        }
         $db = new DatabaseTwo('../db/db.sqlite');
         $rankID = $this->userData["rankID"];
         assert(is_numeric($rankID));
-        return $db->executeSQL("SELECT rankName FROM UserRank WHERE rankID = ". $rankID);
+        return $db->executeSQL("SELECT rankName FROM UserRank WHERE rankID = ?", [$rankID]);
     }
 
     public function __construct() {

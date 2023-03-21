@@ -24,19 +24,20 @@ function Register(props) {
     const [password,setPassword] = useState(null);
     const [confirmPassword,setConfirmPassword] = useState(null);
     const [jobRole,setJobRole] = useState(null);
+    const [userType,setUserType] = useState(null);
     const [registered,setRegistered] = useState(false);
     const [errorMessage,setErrorMessage] = useState("");
     const navigate = useNavigate();
 
 
     const handleSubmit = () => {
-        console.log(firstName,lastName,email,password,confirmPassword, jobRole);
+        console.log(firstName,lastName,email,password,confirmPassword, jobRole, userType);
         if(password !== confirmPassword){
             setErrorMessage("Passwords do not match");
         }
         else {
 
-            fetch('http://localhost:8888/api/register.php',
+            fetch('http://localhost/api/register.php',
                 {
                     method: 'POST',
                     body: JSON.stringify({
@@ -44,7 +45,8 @@ function Register(props) {
                         "lastName": lastName,
                         "email": email,
                         "password": password,
-                        "jobRole": jobRole
+                        "jobRole": jobRole,
+                        "rankID": userType
                     }),
                 })
                 .then(
@@ -66,9 +68,6 @@ function Register(props) {
                     }
                     else if (json.message === "Your password must be at least 8 characters long!"){
                         setErrorMessage("Your password must be at least 8 characters long!");
-                    }
-                    else {
-                        navigate.push('/login');
                     }
                 }
                 )
@@ -98,6 +97,9 @@ function Register(props) {
         if(id === "jobRole"){
             setJobRole(value);
         }
+        if(id === "userType"){
+            setUserType(value);
+        }
 
     }
 
@@ -124,6 +126,15 @@ function Register(props) {
       </Row>
 
       <Row>
+          <Form.Group className="mb-3">
+              <Form.Label>Type of Account</Form.Label>
+              <Form.Select defaultValue="" id="userType" onChange={(e) => handleInputChange(e)}>
+                  <option value="" disabled>Select type of account</option>
+                  <option value="2">Administrator</option>
+                  <option value="1">Participant</option>
+              </Form.Select>
+          </Form.Group>
+
       <Form.Group className="mb-3">
             <Form.Label>Job Role</Form.Label>
             <Form.Control type="text" id="jobRole" onChange = {(e) => handleInputChange(e)} placeholder="Enter job role" />
@@ -163,7 +174,7 @@ function Register(props) {
                 : null}
         <Button variant="dark"
                 onClick={handleSubmit}
-                disabled={!firstName || !lastName || !jobRole || !email || !password || !confirmPassword}>
+                disabled={!firstName || !lastName || !jobRole || !email || !password || !confirmPassword || !userType}>
             Register
         </Button>
 

@@ -32,6 +32,10 @@
         "~/papers~":{
             "methods" : ["GET"],
             "className" : "BaseEndpoint"
+        },
+        "~/auth~":{
+            "methods" : ["POST"],
+            "className" : "Authenticate"
         }
     }
 }
