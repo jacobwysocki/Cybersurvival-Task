@@ -22,9 +22,6 @@ function Dashboard(props) {
         localStorage.removeItem('token')
     }
 
-    const handleClick = (path) => {
-        return <Navigate replace to={path} />;
-    }
 
 
     return(
