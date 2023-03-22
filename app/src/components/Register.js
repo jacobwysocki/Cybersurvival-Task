@@ -42,7 +42,7 @@ function Register(props) {
         }
         else {
 
-            fetch('http://localhost:8080/api/register.php',
+            fetch('http://localhost/api/register.php',
                 {
                     method: 'POST',
                     body: JSON.stringify({

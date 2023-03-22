@@ -2,7 +2,7 @@
 
 class EndpointAuth extends Endpoint{
     public function __construct(Database $db, Request $request){
-        parent::__construct($db, $request, "SystemUser", "userID");
+        parent::__construct($db, $request, "users", "userID");
     }
 
     //The GET method for this endpoint generates a valid access token

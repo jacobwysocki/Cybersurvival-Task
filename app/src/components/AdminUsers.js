@@ -37,7 +37,7 @@ function AdminUsers(props) {
     ).toString('base64');
 
     useEffect( () => {
-        fetch("http://localhost:8080/api/users",
+        fetch("http://localhost/api/users",
             {
                 method: 'GET',
                 headers: new Headers( { "Authorization": "Basic " +encodedString })
@@ -55,6 +55,9 @@ function AdminUsers(props) {
     const handleSignOut = () => {
         props.handleAuthenticated(false)
         localStorage.removeItem('token')
+        localStorage.removeItem('username')
+        localStorage.removeItem('password')
+
     }
 
     const handleUserType = (user) => {
@@ -72,7 +75,7 @@ function AdminUsers(props) {
         }
         else {
 
-            fetch('http://localhost:8080/api/register.php',
+            fetch('http://localhost/api/register.php',
                 {
                     method: 'POST',
                     body: JSON.stringify({

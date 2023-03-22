@@ -8,7 +8,7 @@ function AdminItems(props) {
   const [editingItem, setEditingItem] = useState(null);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8888/api/items")
+    fetch("http://localhost/api/items")
       .then((response) => response.json())
       .then((data) => setItems(data))
       .catch((err) => {

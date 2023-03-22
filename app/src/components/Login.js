@@ -37,21 +37,21 @@ function Login(props) {
 
 
     const handleSubmit = () => {
-        const encodedString = Buffer.from(
-            username + ":" + password
-        ).toString('base64');
+        const token = localStorage.getItem('token');
 
-
-        fetch("http://localhost:8080/api/auth",
+        fetch("http://localhost/api/auth",
             {
                 method: 'GET',
-                headers: new Headers( { "Authorization": "Basic " +encodedString })
+                headers:  {"Authorization": "Bearer " + token}
             })
             .then(
                 (response) => {
-                    return response.json()
-                }
-            )
+                    if (response.status !== 200) {
+                        setErrorMessage("Unauthorized access. Please log in again.");
+                    } else {
+                        return response.json();
+                    }
+                })
             .then(
                 (json) => {
                     if (json.message === "Successfully logged in") {
@@ -68,7 +68,8 @@ function Login(props) {
             )
             .catch(
                 (e) => {
-                    console.log(e.message)
+                    console.log(e)
+                    setErrorMessage("An error occurred while logging in. Please try again later.");
                 }
             )
     }
