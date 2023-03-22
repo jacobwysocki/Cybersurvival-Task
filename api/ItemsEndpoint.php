@@ -7,13 +7,15 @@ class ItemsEndpoint extends Endpoint {
     public function GET() {
         $rank = "null";
 
-        $auth = new Authenticate();
+        $auth = Auth::AuthFactory($this->db, $this->request);
         if(isset($auth)){
             if($auth->authenticate()){
                 $rank = $auth->getRank();
-                $rank = $rank[0]["rankName"];
+            }else{
+                new Response(401);
+                exit();
             }
-        }
+}
 
         $results = $this->db->SELECT_ALL("items");
         switch($rank){

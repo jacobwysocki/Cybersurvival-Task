@@ -1,63 +1,67 @@
 <?php
-require __DIR__ . '/JwtHandler.php';
+use Firebase\JWT\JWT;
 
-class Auth extends JwtHandler
-{
-    protected $db;
-    protected $headers;
-    protected $token;
+abstract class Auth{
+    protected Database $db;
+    protected Array $userData;
 
-    public function __construct($db, $headers)
-    {
-        parent::__construct();
-        $this->db = $db;
-        $this->headers = $headers;
+    public function __construct(Database $database){
+        $this->db = $database;
     }
 
-    public function isValid()
-    {
+    public static function AuthFactory(Database $db, Request $request){
+        $authType = null;
+        $payload = null;
+        if(isset($request->getHEADERS()['Authorization'])){
+            $authHeader = $request->getHEADERS()['Authorization'];
+            $authType = explode(' ', $authHeader)[0];
+            $payload = explode(' ', $authHeader)[1];
+        }else if(isset($request->getHEADERS()['authorization'])){
+            $authHeader = $request->getHEADERS()['authorization'];
+            $authType = explode(' ', $authHeader)[0];
+            $payload = explode(' ', $authHeader)[1];
+        }
 
-        if (array_key_exists('Authorization', $this->headers) && preg_match('/Bearer\s(\S+)/', $this->headers['Authorization'], $matches)) {
+        //assert authType and payload is not null
+        switch($authType){
+            case "basic":
+            case "Basic":
+                return new BasicAuth($db, $payload);
+                break;
+            case "bearer":
+            case "Bearer":
+                return new JWTAuth($db, $payload);
+                break;
+            default:
+                return null;
+        }
+    }
 
-            $data = $this->jwtDecodeData($matches[1]);
+    public abstract function authenticate();
 
-            if (
-                isset($data['data']->user_id) &&
-                $user = $this->fetchUser($data['data']->user_id)
-            ) :
-                return [
-                    "success" => 1,
-                    "user" => $user
-                ];
-            else :
-                return [
-                    "success" => 0,
-                    "message" => $data['message'],
-                ];
-            endif;
-        } else {
-            return [
-                "success" => 0,
-                "message" => "Token not found in request"
+    public function getRank(){
+        $rankID = $this->userData["rankID"];
+        assert(is_numeric($rankID));
+        return $this->db->SELECT_ONE("userRank", "rankID", $rankID)["rankName"];
+    }
+
+    public function createJWT(){
+        assert($this->authenticate());
+        $time = time();
+
+            $tokenPayload = [
+                'iat' => $time,
+                'exp' =>strtotime('+1 day', $time),
+                'iss' => $_SERVER['HTTP_HOST'],
+                'sub' => $this->userData["userID"]
             ];
-        }
+
+            $jwt = JWT::encode($tokenPayload, SECRET, 'HS256');
+
+            return $jwt;
     }
 
-    protected function fetchUser($user_id)
-    {
-        try {
-            $fetch_user_by_id = "SELECT `firstName`,`email` FROM `users` WHERE `userID`=:userID";
-            $query_stmt = $this->db->prepare($fetch_user_by_id);
-            $query_stmt->bindValue(':userID', $user_id, PDO::PARAM_INT);
-            $query_stmt->execute();
-
-            if ($query_stmt->rowCount()) :
-                return $query_stmt->fetch(PDO::FETCH_ASSOC);
-            else :
-                return false;
-            endif;
-        } catch (PDOException $e) {
-            return null;
-        }
+    public function getUserData(){
+        return $this->userData;
     }
 }

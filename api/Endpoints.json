@@ -5,7 +5,7 @@
         },
         "~/auth~":{
             "methods" : ["POST"],
-            "className" : "Authenticate"
+            "className" : "EndpointAuth"
         },
     "user" : {
         "~/$~": {
@@ -29,8 +29,8 @@
             "className" : "UsersEndpoint"
         },
         "~/auth~":{
-            "methods" : ["POST"],
-            "className" : "Authenticate"
+            "methods" : ["GET", "POST"],
+            "className" : "EndpointAuth"
         },
         "~/individualResults~" :{
             "methods" : ["POST", "GET"],
@@ -42,12 +42,16 @@
             "className" : "BaseEndpoint"
         },
         "~/auth~":{
-            "methods" : ["POST"],
-            "className" : "Authenticate"
+            "methods" : ["GET", "POST"],
+            "className" : "EndpointAuth"
         },
         "~/groups~" : {
             "methods" : ["POST", "GET", "DELETE", "PUT", "OPTIONS"],
             "className" : "GroupEndpoint"
+        },        
+        "~/items~":{
+            "methods" : ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+            "className" : "ItemsEndpoint"
         }
     }
 }
