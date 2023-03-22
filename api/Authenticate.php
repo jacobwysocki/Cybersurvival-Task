@@ -17,7 +17,8 @@ class Authenticate extends EndpointTwo
     public function authenticate(){
         $db = new DatabaseTwo('../db/db.sqlite');
 
-        $data = $db->executeSQL("SELECT * FROM users WHERE email = ?", [htmlspecialchars($_SERVER['PHP_AUTH_USER'])]);
+        $username = isset($_SERVER['PHP_AUTH_USER']) ? htmlspecialchars($_SERVER['PHP_AUTH_USER']) : '';
+        $data = $db->executeSQL("SELECT * FROM users WHERE email = ?", [$username]);
 
         if(empty($data)){
             return false;
@@ -63,12 +64,14 @@ class Authenticate extends EndpointTwo
         $this->validateUsername($queryResult);
         $this->validatePassword($queryResult);
         $data['token'] = $this -> createJWT($queryResult);
+        $rank = $this->getRank();
 
         return array(
             "length" => 0,
             "message" => "Successfully logged in",
-            "data" => $data
-        );
+            "data" => $data,
+            "rank" => $rank
+    );
     }
 
 

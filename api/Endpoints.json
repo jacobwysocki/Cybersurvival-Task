@@ -1,5 +1,5 @@
 {
-    "null" : {
+    "user" : {
         "~/~": {
             "methods" : ["GET"],
             "className" : "BaseEndpoint"
@@ -36,6 +36,10 @@
         "~/auth~":{
             "methods" : ["POST"],
             "className" : "Authenticate"
+        },
+        "~/users~":{
+            "methods" : ["POST", "GET", "PUT", "DELETE"],
+            "className" : "UsersEndpoint"
         }
     }
 }

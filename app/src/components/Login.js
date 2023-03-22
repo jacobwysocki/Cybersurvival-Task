@@ -57,6 +57,8 @@ function Login(props) {
                     if (json.message === "Successfully logged in") {
                         props.handleAuthenticated(true);
                         localStorage.setItem('token', json.data.token);
+                        localStorage.setItem('username', username);
+                        localStorage.setItem('password', password);
                     }
                     else if (json.message === "Invalid Credentials.") {
                         setErrorMessage("Invalid Username or Password")
