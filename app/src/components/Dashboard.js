@@ -38,11 +38,12 @@ function Dashboard(props) {
                         onClick={handleSignOut}>
                     Sign out
                 </Button>
-                <Button variant="dark"
-                        type="submit"
-                        onClick={handleClick('/AdminUsers')}>
-                    Manage Users
-                </Button>
+                {localStorage.getItem('rank') == "admin" &&
+                    <Button as={Link} to="/AdminUsers" className="button"
+                    variant="dark"
+                    type="submit">
+                        Manage Users
+                    </Button>}
                 <div>
                     <Button as={Link} to="/startExperiment" className="button"
                     variant="dark"

@@ -59,8 +59,7 @@ function Login(props) {
                         localStorage.setItem('username', username);
                         localStorage.setItem('password', password);
                         localStorage.setItem('token', json.data.token);
-                        localStorage.setItem('username', username);
-                        localStorage.setItem('password', password);
+                        localStorage.setItem('rank', json.data.rank);
                     }
                     else if (json.message === "Invalid Credentials.") {
                         setErrorMessage("Invalid Username or Password")
@@ -113,7 +112,7 @@ function Login(props) {
 
                         <Button className="button"
                                 variant="dark"
-                                type="submit"
+                                // type="submit"
                                 onClick={handleSubmit}
                                 disabled={!username || !password}>
                             Sign in

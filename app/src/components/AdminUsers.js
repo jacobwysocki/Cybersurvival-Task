@@ -37,7 +37,7 @@ function AdminUsers(props) {
     ).toString('base64');
 
     useEffect( () => {
-        fetch("http://localhost/api/users",
+        fetch("http://localhost:8080/api/users",
             {
                 method: 'GET',
                 headers: new Headers( { "Authorization": "Basic " +encodedString })
@@ -72,7 +72,7 @@ function AdminUsers(props) {
         }
         else {
 
-            fetch('http://localhost/api/register.php',
+            fetch('http://localhost:8080/api/register.php',
                 {
                     method: 'POST',
                     body: JSON.stringify({

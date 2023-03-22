@@ -3,15 +3,10 @@
             "methods" : ["GET"],
             "className" : "BaseEndpoint"
         },
-        "~/users~":{
-            "methods" : ["POST", "GET", "PUT", "DELETE"],
-            "className" : "UsersEndpoint"
-        },
         "~/auth~":{
             "methods" : ["POST"],
             "className" : "Authenticate"
-        }
-    },
+        },
     "user" : {
         "~/$~": {
             "methods" : ["GET"],
@@ -49,6 +44,10 @@
         "~/auth~":{
             "methods" : ["POST"],
             "className" : "Authenticate"
+        },
+        "~/groups~" : {
+            "methods" : ["POST", "GET", "DELETE", "PUT", "OPTIONS"],
+            "className" : "GroupEndpoint"
         }
     }
 }

@@ -69,14 +69,20 @@ class Authenticate extends EndpointTwo
         // Validate the username and password
         $this->validateUsername($queryResult);
         $this->validatePassword($queryResult);
-        $data['token'] = $this -> createJWT($queryResult);
-        $rank = $this->getRank();
+        $auth = new Authenticate();
+        if(isset($auth)){
+            if($auth->authenticate()){
+                $rank = $auth->getRank();
+                $rank = $rank[0]["rankName"];
+            }
+        }
 
+        $data['token'] = $this -> createJWT($queryResult);
+        $data['rank'] = $rank;
         return array(
             "length" => 0,
             "message" => "Successfully logged in",
-            "data" => $data,
-            "rank" => $rank
+            "data" => $data
     );
     }
 

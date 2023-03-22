@@ -11,7 +11,7 @@ function GroupSelect(){
         .then( 
             (response) => response.json() 
         ).then(
-            data => setGroups(data)
+            json => console.log(json)
         ).catch((err) => {
             console.log(err.message);
         });

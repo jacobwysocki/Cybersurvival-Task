@@ -33,7 +33,7 @@ foreach(array_keys($file[$rank]) as $route){
 }
 
 if($endpoint == null){
-    new Response(400);
+    new Response(401);
     exit;
 }
 
