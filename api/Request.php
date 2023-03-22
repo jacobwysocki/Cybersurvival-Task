@@ -24,6 +24,7 @@
                 
             }
 
+            $this->REQUEST_BODY = $_POST;
             $this->HEADERS = getallheaders();
             $this->HTTP_METHOD = $_SERVER['REQUEST_METHOD'];
             $inputStreamData = file_get_contents("php://input");

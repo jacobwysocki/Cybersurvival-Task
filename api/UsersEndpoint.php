@@ -21,4 +21,5 @@ class UsersEndpoint extends Endpoint {
     public function DELETE() {
         return $this->db->DELETE("users", "userID", $this->uri[3]);
     }
+
 }

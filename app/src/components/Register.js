@@ -59,6 +59,7 @@ function Register(props) {
                     console.log(json);
                     if (json.message === "You have successfully registered.") {
                         setRegistered(true);
+                        navigate('/login');
                     }
                     else if (json.message === "Invalid Email Address!") {
                         setErrorMessage("Invalid Email address!");
