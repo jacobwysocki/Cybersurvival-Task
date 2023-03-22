@@ -1,7 +1,7 @@
 import '../App.css';
 import React from "react";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faKey, faMobileAlt, faWifi, faSignOutAlt } from "@fontawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faKey, faMobileAlt, faWifi, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 
 /**
  * SecInfo.
@@ -20,7 +20,7 @@ function SecInfoPage(){
                     Here are some key security tips to keep in mind</p>
             </div>
             <div>
-                <h2> Use Strong Passwords</h2>
+                <h2><FontAwesomeIcon icon={faKey} /> Use Strong Passwords</h2>
                 <p>
                     Create unique and strong passwords for each of your accounts. Use a
                     combination of letters, numbers, and symbols to make it difficult for
@@ -29,7 +29,7 @@ function SecInfoPage(){
                 </p>
             </div>
             <div>
-                <h2>Enable Two-Factor Authentication</h2>
+                <h2><FontAwesomeIcon icon={faMobileAlt} /> Enable Two-Factor Authentication</h2>
                 <p>
                     Turn on two-factor authentication (2FA) for an extra layer of
                     security. This requires you to verify your identity using a
@@ -39,7 +39,7 @@ function SecInfoPage(){
                 </p>
             </div>
             <div>
-                <h2>Be Cautious with Public Wi-Fi</h2>
+                <h2><FontAwesomeIcon icon={faWifi} /> Be Cautious with Public Wi-Fi</h2>
                 <p>
                     Avoid using public Wi-Fi networks, especially when accessing
                     sensitive information. Public Wi-Fi networks can be easily
@@ -49,7 +49,7 @@ function SecInfoPage(){
                 </p>
             </div>
             <div>
-                <h2> Log out after use</h2>
+                <h2><FontAwesomeIcon icon={faSignOutAlt} /> Log out after use</h2>
                 <p>
                     Always log out of your accounts when you are finished,
                     especially on shared or public devices.
