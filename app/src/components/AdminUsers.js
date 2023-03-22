@@ -32,15 +32,13 @@ function AdminUsers(props) {
 
     const [users, setUsers] = useState([]);
 
-    const encodedString = Buffer.from(
-        localStorage.getItem('username') + ":" + localStorage.getItem('password')
-    ).toString('base64');
+    const token = localStorage.getItem('token');
 
     useEffect( () => {
         fetch("http://localhost/api/users",
             {
                 method: 'GET',
-                headers: new Headers( { "Authorization": "Basic " +encodedString })
+                headers: {"Authorization": "Bearer " + token}
             })
             .then(
                 (response) => response.json()
@@ -52,13 +50,6 @@ function AdminUsers(props) {
     }, []);
 
 
-    const handleSignOut = () => {
-        props.handleAuthenticated(false)
-        localStorage.removeItem('token')
-        localStorage.removeItem('username')
-        localStorage.removeItem('password')
-
-    }
 
     const handleUserType = (user) => {
         if (user.rankID === 2) {
@@ -147,13 +138,6 @@ function AdminUsers(props) {
         <div>
             {props.authenticated &&
                 <div>
-                    <Button className="buttonSignOut"
-                            variant="dark"
-                            type="submit"
-                            onClick={handleSignOut}>
-                        Sign out
-                    </Button>
-
                     <h2>Add Users</h2>
                     <div className= "registerForm">
                         <Container>

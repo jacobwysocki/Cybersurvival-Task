@@ -37,12 +37,15 @@ function Login(props) {
 
 
     const handleSubmit = () => {
-        const token = localStorage.getItem('token');
+        const encodedString = Buffer.from(
+            username + ":" + password
+        ).toString('base64');
+
 
         fetch("http://localhost/api/auth",
             {
                 method: 'GET',
-                headers:  {"Authorization": "Bearer " + token}
+                headers:  { "Authorization": "Basic " +encodedString }
             })
             .then(
                 (response) => {

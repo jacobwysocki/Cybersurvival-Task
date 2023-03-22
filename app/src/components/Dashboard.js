@@ -19,9 +19,9 @@ function Dashboard(props) {
 
     const handleSignOut = () => {
         props.handleAuthenticated(false)
-        localStorage.removeItem('token')
+        localStorage.clear();
+        return <Navigate replace to="/login" />;
     }
-
 
 
     return(
@@ -41,11 +41,13 @@ function Dashboard(props) {
                     type="submit">
                         Manage Users
                     </Button>}
+                {localStorage.getItem('rank') == "admin" &&
                     <Button as={Link} to="/AdminItems" className="button"
-                    variant="dark"
-                    type="submit">
+                            variant="dark"
+                            type="submit">
                         Manage Items
                     </Button>
+                }
                 
 
                 <div>
