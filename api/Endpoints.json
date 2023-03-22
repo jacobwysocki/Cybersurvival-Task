@@ -45,6 +45,10 @@
             "methods" : ["GET", "POST"],
             "className" : "EndpointAuth"
         },
+        "~/users~":{
+            "methods" : ["POST", "GET", "PUT", "DELETE"],
+            "className" : "UsersEndpoint"
+        },
         "~/groups~" : {
             "methods" : ["POST", "GET", "DELETE", "PUT", "OPTIONS"],
             "className" : "GroupEndpoint"
