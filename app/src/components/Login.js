@@ -44,7 +44,7 @@ function Login(props) {
 
         fetch("http://localhost:8080/api/auth",
             {
-                method: 'POST',
+                method: 'GET',
                 headers: new Headers( { "Authorization": "Basic " +encodedString })
             })
             .then(
@@ -56,10 +56,10 @@ function Login(props) {
                 (json) => {
                     if (json.message === "Successfully logged in") {
                         props.handleAuthenticated(true);
-                        localStorage.setItem('username', username);
-                        localStorage.setItem('password', password);
-                        localStorage.setItem('token', json.data.token);
-                        localStorage.setItem('rank', json.data.rank);
+                        // localStorage.setItem('username', username);
+                        // localStorage.setItem('password', password);
+                        localStorage.setItem('token', json.token);
+                        localStorage.setItem('rank', json.rank);
                     }
                     else if (json.message === "Invalid Credentials.") {
                         setErrorMessage("Invalid Username or Password")

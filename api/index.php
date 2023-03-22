@@ -3,7 +3,7 @@ require 'vendor/autoload.php';
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
-
+define('SECRET', "gwFFL67IOoJuBqE4COZFHZg69UavVVne");
 error_reporting(E_ALL);
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
@@ -17,11 +17,17 @@ $db = Database::DatabaseFactory();
 
 $rank = "null";
 
-$auth = new Authenticate();
+$auth = Auth::AuthFactory($db, $request);
 if(isset($auth)){
     if($auth->authenticate()){
         $rank = $auth->getRank();
-        $rank = $rank[0]["rankName"];
+    }else{
+        $r = new \Response(401);
+        $r->setBody(array(
+            "status" => "error",
+            "message" => "Invalid Credentials."
+        ));
+        exit();
     }
 }
 
@@ -33,7 +39,11 @@ foreach(array_keys($file[$rank]) as $route){
 }
 
 if($endpoint == null){
-    new Response(401);
+    $r = new \Response(401);
+    $r->setBody(array(
+        "status" => "error",
+        "message" => "Invalid Credentials."
+    ));
     exit;
 }
 
