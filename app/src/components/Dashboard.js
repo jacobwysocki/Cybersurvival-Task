@@ -44,6 +44,13 @@ function Dashboard(props) {
                     type="submit">
                         Manage Users
                     </Button>}
+                    <Button as={Link} to="/AdminItems" className="button"
+                    variant="dark"
+                    type="submit">
+                        Manage Items
+                    </Button>
+                
+
                 <div>
                     <Button as={Link} to="/startExperiment" className="button"
                     variant="dark"
