@@ -7,8 +7,14 @@ function AdminItems(props) {
   const [itemInput, setItemInput] = useState('');
   const [editingItem, setEditingItem] = useState(null);
 
+  const token = localStorage.getItem('token');
+
   useEffect(() => {
-    fetch("http://localhost/api/items")
+    fetch("http://localhost:8888/api/items",
+            {
+                method: 'GET',
+                headers: {"Authorization": "Bearer " + token}
+            })
       .then((response) => response.json())
       .then((data) => setItems(data))
       .catch((err) => {
