@@ -12,6 +12,7 @@ import AdminItems from './components/AdminItems.js';
 import SecInfoPage from "./components/SecInfo";
 import Dashboard from "./components/Dashboard";
 import AdminUsers from "./components/AdminUsers";
+import GroupSelect from './components/GroupSelect';
 
 function App() {
 
@@ -30,7 +31,7 @@ function App() {
           <Route path="/login" element={<Login handleAuthenticated={setAuthenticated} authenticated={authenticated}/>}/>
           <Route path="/register" element={<Register handleAuthenticated={setAuthenticated}/>}/>
           {/* <Route path="*" element={<p>Not Found</p>}/> */}
-          <Route path="/individual-stage" element={<IndividualStage/>}/>
+          <Route path="/startExperiment" element={<GroupSelect/>}/>
           <Route path="/AdminItems" element={<AdminItems/>}/>
           <Route path="/SecInfo" element={<SecInfoPage/>}/>
           <Route path="/dashboard" element={<Dashboard handleAuthenticated={setAuthenticated} authenticated={authenticated}/>}/>

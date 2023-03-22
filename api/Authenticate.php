@@ -17,8 +17,11 @@ class Authenticate extends EndpointTwo
     public function authenticate(){
         $db = new DatabaseTwo('../db/db.sqlite');
 
-        $username = isset($_SERVER['PHP_AUTH_USER']) ? htmlspecialchars($_SERVER['PHP_AUTH_USER']) : '';
-        $data = $db->executeSQL("SELECT * FROM users WHERE email = ?", [$username]);
+        if(!isset($_SERVER["PHP_AUTH_USER"]) || !isset($_SERVER["PHP_AUTH_PW"])){
+            return false;
+        }
+
+        $data = $db->executeSQL("SELECT * FROM users WHERE email = ?", [htmlspecialchars($_SERVER['PHP_AUTH_USER'])]);
 
         if(empty($data)){
             return false;
@@ -32,6 +35,9 @@ class Authenticate extends EndpointTwo
         }else return false;
     }
 
+    public function getUserID(){
+        return $this->userData["userID"];
+    }
 
     public function getRank(){
         if(!isset($this->userData["rankID"])){

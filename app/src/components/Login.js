@@ -42,7 +42,7 @@ function Login(props) {
         ).toString('base64');
 
 
-        fetch("http://localhost/api/auth",
+        fetch("http://localhost:8080/api/auth",
             {
                 method: 'POST',
                 headers: new Headers( { "Authorization": "Basic " +encodedString })
@@ -56,6 +56,8 @@ function Login(props) {
                 (json) => {
                     if (json.message === "Successfully logged in") {
                         props.handleAuthenticated(true);
+                        localStorage.setItem('username', username);
+                        localStorage.setItem('password', password);
                         localStorage.setItem('token', json.data.token);
                         localStorage.setItem('username', username);
                         localStorage.setItem('password', password);

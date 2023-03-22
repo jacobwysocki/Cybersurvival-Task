@@ -5,9 +5,26 @@ class ItemsEndpoint extends Endpoint {
     }
   
     public function GET() {
+        $rank = "null";
+
+        $auth = new Authenticate();
+        if(isset($auth)){
+            if($auth->authenticate()){
+                $rank = $auth->getRank();
+                $rank = $rank[0]["rankName"];
+            }
+        }
+
         $results = $this->db->SELECT_ALL("items");
-        shuffle($results);
-         return $results;
+        switch($rank){
+            case "user":
+                shuffle($results);
+                return $results;
+                break;
+            case 'admin':
+                return $results;
+                break;
+        }
     }
 
     public function PUT() {

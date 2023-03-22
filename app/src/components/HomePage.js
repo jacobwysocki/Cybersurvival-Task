@@ -25,12 +25,6 @@ function HomePage() {
           type="submit">
           Register
         </Button>
-
-        <Button as={Link} to="/individual-stage" className="button"
-          variant="dark"
-          type="submit">
-          Individual Stage
-        </Button>
         </div>
     )
 }

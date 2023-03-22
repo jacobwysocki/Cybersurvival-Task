@@ -2,6 +2,8 @@ import Login from "./Login";
 import React, {useState, useEffect} from 'react';
 import { Navigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
+import { Link } from "react-router-dom";
+import GroupSelect from "./GroupSelect";
 
 
 function Dashboard(props) {
@@ -38,10 +40,18 @@ function Dashboard(props) {
                 </Button>
                 <Button variant="dark"
                         type="submit"
-                        onClick={() => handleClick('/AdminUsers')}>
+                        onClick={handleClick('/AdminUsers')}>
                     Manage Users
                 </Button>
-        </div>
+                <div>
+                    <Button as={Link} to="/startExperiment" className="button"
+                    variant="dark"
+                    type="submit">
+                    Start the cybersurvival experiment!
+                    </Button>
+                </div>
+            </div>
+
         }
         {!props.authenticated &&
             <Navigate replace to="/login"/>

@@ -1,15 +1,28 @@
 {
+    "null" : {
+            "methods" : ["GET"],
+            "className" : "BaseEndpoint"
+        },
+        "~/users~":{
+            "methods" : ["POST", "GET", "PUT", "DELETE"],
+            "className" : "UsersEndpoint"
+        },
+        "~/auth~":{
+            "methods" : ["POST"],
+            "className" : "Authenticate"
+        }
+    },
     "user" : {
-        "~/~": {
+        "~/$~": {
             "methods" : ["GET"],
             "className" : "BaseEndpoint"
         },
         "~/items~":{
-            "methods" : ["GET", "OPTIONS", "PUT", "POST", "DELETE"],
+            "methods" : ["GET", "OPTIONS"],
             "className" : "ItemsEndpoint"
         },
         "~/groups~" : {
-            "methods" : ["POST", "GET", "DELETE"],
+            "methods" : ["POST", "GET"],
             "className" : "GroupEndpoint"
         },
         "~/experiments~":{
@@ -36,10 +49,6 @@
         "~/auth~":{
             "methods" : ["POST"],
             "className" : "Authenticate"
-        },
-        "~/users~":{
-            "methods" : ["POST", "GET", "PUT", "DELETE"],
-            "className" : "UsersEndpoint"
         }
     }
 }

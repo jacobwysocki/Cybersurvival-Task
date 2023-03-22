@@ -3,6 +3,9 @@ require 'vendor/autoload.php';
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
+
+error_reporting(E_ALL);
+
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit(0);
 }
@@ -19,9 +22,6 @@ if(isset($auth)){
     if($auth->authenticate()){
         $rank = $auth->getRank();
         $rank = $rank[0]["rankName"];
-    }else{
-        new Response(401);
-        exit();
     }
 }
 
