@@ -25,6 +25,13 @@ function HomePage() {
           type="submit">
           Register
         </Button>
+            <div  className="d-flex flex-column justify-content-between min-vh-100">
+                <Link to="/secinfo">
+                    <Button className="button mt-2" variant="secondary">
+                        Security Information
+                    </Button>
+                </Link>
+            </div>
         </div>
     )
 }
