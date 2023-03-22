@@ -6,7 +6,7 @@ class ItemsEndpoint extends Endpoint {
   
     public function GET() {
         $results = $this->db->SELECT_ALL("items");
-        // shuffle($results);
+        shuffle($results);
          return $results;
     }
 

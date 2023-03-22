@@ -1,7 +1,11 @@
 <?php
 require 'vendor/autoload.php';
-header("Access-Control-Allow-Headers: *");
+header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: *");
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    exit(0);
+}
 
 $request = new Request();
 
@@ -10,24 +14,18 @@ $db = Database::DatabaseFactory();
 
 $rank = "null";
 
-// if(isset($request->getHEADERS()['Authorization'])){
-//     $authHeader = $request->getHEADERS()['Authorization'];
-//     $authType = explode(' ', $authHeader)[0];
-//     $authString = explode(' ', $authHeader)[1];
-//     if($authType === "Bearer" || $authType === "bearer"){
-//         // AuthEndpoint::authenticate($authString) ? $rank="true" : $rank = "null";
-//     }
-// }else if(isset($request->getHEADERS()['authorization'])){
-//     $authHeader = $request->getHEADERS()['authorization'];
-//     $authType = explode(' ', $authHeader)[0];
-//     $authString = explode(' ', $authHeader)[1];
-//     if($authType === "Bearer" || $authType === "bearer"){
-//         // AuthEndpoint::authenticate($authString) ? $rank="true" : $rank = "null";
-//     }
-// }
+$auth = new Authenticate();
+if(isset($auth)){
+    if($auth->authenticate()){
+        $rank = $auth->getRank();
+        $rank = $rank[0]["rankName"];
+    }else{
+        new Response(401);
+        exit();
+    }
+}
 
 $endpoint = null;
-
 foreach(array_keys($file[$rank]) as $route){
     if (preg_match($route, $request->getURI())){
         $endpoint = $route;

@@ -20,14 +20,22 @@
             "methods" : ["POST", "GET", "PUT", "DELETE"],
             "className" : "UsersEndpoint"
         },
+        "~/auth~":{
+            "methods" : ["POST"],
+            "className" : "Authenticate"
+        },
         "~/individualResults~" :{
             "methods" : ["POST", "GET"],
             "className" : "individualResultsEndpoint"}
     },
-    "true" : {
+    "admin" : {
         "~/papers~":{
-            "methods" : ["PUT"],
-            "className" : "PapersEndpoint"
+            "methods" : ["GET"],
+            "className" : "BaseEndpoint"
+        },
+        "~/auth~":{
+            "methods" : ["POST"],
+            "className" : "Authenticate"
         }
     }
 }

@@ -1,9 +1,11 @@
 import React, {useState, useEffect} from 'react';
-
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
+import { Buffer } from 'buffer';
+import {Routes, Route, Navigate} from 'react-router-dom';
+
 
 /**
  * Login component.
@@ -17,9 +19,6 @@ function Login(props) {
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
 
-    
-
-/*
     useEffect(
         () => {
             if (localStorage.getItem('token')) {
@@ -36,16 +35,17 @@ function Login(props) {
         setPassword(event.target.value);
     }
 
+
     const handleSubmit = () => {
         const encodedString = Buffer.from(
             username + ":" + password
         ).toString('base64');
 
 
-        fetch("",
+        fetch("http://localhost/api/auth",
             {
                 method: 'POST',
-                headers: new Headers({"Authorization": "Basic " + encodedString})
+                headers: new Headers( { "Authorization": "Basic " +encodedString })
             })
             .then(
                 (response) => {
@@ -54,10 +54,11 @@ function Login(props) {
             )
             .then(
                 (json) => {
-                    if (json.message === "Success") {
+                    if (json.message === "Successfully logged in") {
                         props.handleAuthenticated(true);
                         localStorage.setItem('token', json.data.token);
-                    } else if (json.message === "Invalid Credentials.") {
+                    }
+                    else if (json.message === "Invalid Credentials.") {
                         setErrorMessage("Invalid Username or Password")
                     }
                 }
@@ -68,7 +69,7 @@ function Login(props) {
                 }
             )
     }
-    */
+
 
     const handleSignOut = () => {
         props.handleAuthenticated(false)
@@ -78,47 +79,27 @@ function Login(props) {
         setErrorMessage("");
     }
 
-    
-
 
     return (
         <div>
             {props.authenticated && <div>
-                <h1>Admin Page</h1>
-                <br/>
-                <Button className="buttonSignOut"
-                        variant="dark"
-                        type="submit"
-                        onClick={handleSignOut}>
-                    Sign out
-                </Button>
-            
-                
-                
+                <Navigate replace to="/dashboard"/>
             </div>
             }
             {!props.authenticated && <div>
                 <h2>Sign in</h2>
                 <div className="formArea">
                     <div className="form-container">
-                        <FloatingLabel
-                            controlId="floatingInput"
-                            label="Username"
-                            className="mb-3">
                             <Form.Control
                                 type="text"
-                                placeholder="jakub123"
-                                />
-                        </FloatingLabel>
+                                placeholder="Email"
+                                onChange={handleUsername}/>
 
-                        <FloatingLabel
-                            controlId="floatingPassword"
-                            label="Password">
                             <Form.Control
                                 type="password"
                                 placeholder="Password"
-                                />
-                        </FloatingLabel>
+                                onChange={handlePassword}/>
+
                         <br/>
                         {errorMessage.length > 0 ?
                             <Alert variant="danger">
@@ -128,7 +109,9 @@ function Login(props) {
 
                         <Button className="button"
                                 variant="dark"
-                                type="submit">
+                                type="submit"
+                                onClick={handleSubmit}
+                                disabled={!username || !password}>
                             Sign in
                         </Button>
                     </div>

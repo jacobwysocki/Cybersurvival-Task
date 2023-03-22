@@ -5,7 +5,7 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
-import {Link} from "react-router-dom";
+import {json, Link, useNavigate} from "react-router-dom";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -24,37 +24,57 @@ function Register(props) {
     const [password,setPassword] = useState(null);
     const [confirmPassword,setConfirmPassword] = useState(null);
     const [jobRole,setJobRole] = useState(null);
-    const [formData, setFormData] = useState({
-        firstName:'',
-        lastName:'',
-        email:'',
-        password:''
-    });
+    const [userType,setUserType] = useState(null);
+    const [registered,setRegistered] = useState(false);
+    const [errorMessage,setErrorMessage] = useState("");
+    const navigate = useNavigate();
+
 
     const handleSubmit = () => {
-        const data = new FormData();
-        data.append('firstName', firstName);
-        data.append('lastName', lastName);
-        data.append('email', email);
-        data.append('password', password);
-        data.append('confirmPassword', confirmPassword);
-        data.append('jobRole', jobRole);
-    
-        
-        fetch('http://localhost/api/register.php', {
-            method: 'POST',
-            body: {data},
-        })
-            .then((response) => response.text())
-            .then((data) => {
-                console.log(data);
-                
-            })
-            .catch((error) => {
-                console.error(error);
-                
-            });
-            console.log({data});
+        console.log(firstName,lastName,email,password,confirmPassword, jobRole, userType);
+        if(password !== confirmPassword){
+            setErrorMessage("Passwords do not match");
+        }
+        else {
+
+            fetch('http://localhost/api/register.php',
+                {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        "firstName": firstName,
+                        "lastName": lastName,
+                        "email": email,
+                        "password": password,
+                        "jobRole": jobRole,
+                        "rankID": userType
+                    }),
+                })
+                .then(
+                    (response) => {
+                        return response.json()
+                    }
+                )
+
+                .then((json) => {
+                    console.log(json);
+                    if (json.message === "You have successfully registered.") {
+                        setRegistered(true);
+                    }
+                    else if (json.message === "Invalid Email Address!") {
+                        setErrorMessage("Invalid Email address!");
+                    }
+                    else if (json.message === "SQLSTATE[23000]: Integrity constraint violation: 19 UNIQUE constraint failed: users.email") {
+                        setErrorMessage("Email already exists!");
+                    }
+                    else if (json.message === "Your password must be at least 8 characters long!"){
+                        setErrorMessage("Your password must be at least 8 characters long!");
+                    }
+                }
+                )
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
     };
 
     const handleInputChange = (e) => {
@@ -77,11 +97,11 @@ function Register(props) {
         if(id === "jobRole"){
             setJobRole(value);
         }
+        if(id === "userType"){
+            setUserType(value);
+        }
 
     }
-
-    
-
 
 
     return (
@@ -93,55 +113,75 @@ function Register(props) {
         <Row>
         <Col><Form.Group className="mb-3">
             <Form.Label>First Name</Form.Label>
-            <Form.Control type="text" value={firstName} onChange = {(e) => handleInputChange(e)} id="firstName" placeholder="Enter first name" />
+            <Form.Control type="text" onChange = {(e) => handleInputChange(e)} id="firstName" placeholder="Enter first name" />
         </Form.Group>
         </Col>
 
         <Col><Form.Group className="mb-3">
-            <Form.Label for="lastName">Last Name</Form.Label>
-            <Form.Control type="text" id="lastName" value={lastName} onChange = {(e) => handleInputChange(e)} placeholder="Enter last name" />
+            <Form.Label>Last Name</Form.Label>
+            <Form.Control type="text" id="lastName" onChange = {(e) => handleInputChange(e)} placeholder="Enter last name" />
         </Form.Group>
         </Col>
 
       </Row>
 
       <Row>
+          <Form.Group className="mb-3">
+              <Form.Label>Type of Account</Form.Label>
+              <Form.Select defaultValue="" id="userType" onChange={(e) => handleInputChange(e)}>
+                  <option value="" disabled>Select type of account</option>
+                  <option value="2">Administrator</option>
+                  <option value="1">Participant</option>
+              </Form.Select>
+          </Form.Group>
+
       <Form.Group className="mb-3">
-            <Form.Label for="jobRole">Job Role</Form.Label>
-            <Form.Control type="text" id="jobRole" value={jobRole} onChange = {(e) => handleInputChange(e)} placeholder="Enter job role" />
+            <Form.Label>Job Role</Form.Label>
+            <Form.Control type="text" id="jobRole" onChange = {(e) => handleInputChange(e)} placeholder="Enter job role" />
         </Form.Group>
 
         <Col><Form.Group className="mb-3">
-            <Form.Label for="email">Email address</Form.Label>
-            <Form.Control type="email" id="email" value={email} onChange = {(e) => handleInputChange(e)} placeholder="Enter email" />
+            <Form.Label>Email address</Form.Label>
+            <Form.Control type="email" id="email" onChange = {(e) => handleInputChange(e)} placeholder="Enter email" />
         </Form.Group>
         
 
         <Form.Group className="mb-3">
-            <Form.Label for="password">Password</Form.Label>
-            <Form.Control type="password" id="password" value={password} onChange = {(e) => handleInputChange(e)} placeholder="Password" />
+            <Form.Label>Password</Form.Label>
+            <Form.Control type="password" id="password" onChange = {(e) => handleInputChange(e)} placeholder="Password" />
             <Form.Text className="text-muted">
             Use a strong password.
             </Form.Text>
         </Form.Group>
         
         <Form.Group className="mb-3">
-            <Form.Label for="confirmPassword">Confirm Password</Form.Label>
-            <Form.Control type="password" id="confirmPassword" value={confirmPassword} onChange = {(e) => handleInputChange(e)} placeholder="Confirm Password" />
+            <Form.Label>Confirm Password</Form.Label>
+            <Form.Control type="password" id="confirmPassword" onChange = {(e) => handleInputChange(e)} placeholder="Confirm Password" />
         </Form.Group>
 
         </Col>
         
-      </Row>    
-        <Button variant="dark" onClick={()=>handleSubmit()} type="submit" >
+      </Row>
+            {errorMessage.length > 0 ?
+                <Alert variant="danger">
+                    {errorMessage}
+                </Alert>
+                : null}
+            {registered === true ?
+                <Alert variant="success">
+                    You have successfully registered.
+                </Alert>
+                : null}
+        <Button variant="dark"
+                onClick={handleSubmit}
+                disabled={!firstName || !lastName || !jobRole || !email || !password || !confirmPassword || !userType}>
             Register
         </Button>
+
+
         </Form>
     </Container>
         </div>
-        
-
-        
         </>
     )
 }
