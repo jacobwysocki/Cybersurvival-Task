@@ -133,6 +133,26 @@ function AdminUsers(props) {
 
     }
 
+    const handleDeleteUser = (userID) => {
+        const filteredUsers = users.filter((user) => user.userID !== userID);
+        setUsers(filteredUsers);
+        console.log(userID);
+
+        fetch("http://localhost/api/users/" + userID,
+            {
+                method: 'DELETE',
+                headers: {"Authorization": "Bearer " + token}
+            })
+            .then(
+                (response) => response.json()
+            ).then(
+            data => setUsers(data)
+        ).catch((err) => {
+            console.log(err.message);
+        });
+
+    };
+
 
     return(
         <div>
@@ -224,6 +244,7 @@ function AdminUsers(props) {
                             <th>Email</th>
                             <th>Job Role</th>
                             <th>User Type</th>
+                            <th></th> {/* new column for delete button */}
                         </tr>
                         </thead>
                         <tbody>
@@ -234,6 +255,11 @@ function AdminUsers(props) {
                                 <td>{user.email}</td>
                                 <td>{user.jobRole}</td>
                                 <td>{handleUserType(user)}</td>
+                                <td>
+                                    <Button variant="danger" onClick={() => handleDeleteUser(user.userID)}>
+                                        Delete
+                                    </Button>
+                                </td>
                             </tr>
                         ))}
                         </tbody>
