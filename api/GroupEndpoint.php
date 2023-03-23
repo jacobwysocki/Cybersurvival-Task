@@ -13,11 +13,17 @@ class GroupEndpoint extends Endpoint{
     public function POST(){
         $rank = "null";
 
-        $auth = new Authenticate();
+        $auth = Auth::AuthFactory($this->db, $this->request);
         if(isset($auth)){
             if($auth->authenticate()){
                 $rank = $auth->getRank();
-                $rank = $rank[0]["rankName"];
+            }else{
+                $r = new \Response(401);
+                $r->setBody(array(
+                    "status" => "error",
+                    "message" => "Invalid Credentials."
+                ));
+                exit();
             }
         }
 
@@ -27,7 +33,7 @@ class GroupEndpoint extends Endpoint{
                 assert(isset($this->uri[3]));
                 //add check for number of people in a group
                 $this->db->POST("userGroup",array(
-                    "userID" => $auth->getUserID(),
+                    "userID" => $auth->getUserData()["userID"],
                     "groupID" => $this->uri[3]
                 ));
                 break;

@@ -16,25 +16,36 @@ use Ratchet\WebSocket\WsServer;
  */
 class MyChat implements MessageComponentInterface {
     protected $clients;
-    protected $clientids;
 
     public function __construct() {
         $this->clients = new \SplObjectStorage;
-        $this->clientids = array();
     }
 
     public function onOpen(ConnectionInterface $conn) {
-        $this->clients->attach($conn);
-        echo($conn->httpRequest->getUri()->getQuery());
+        $id = null;
+        
+        if($conn->httpRequest->getUri()->getQuery()){
+         $id = explode("=", $conn->httpRequest->getUri()->getQuery())[1];
+        }
+        $this->clients->attach($conn, ['groupID' => $id]);
     }
 
     public function onMessage(ConnectionInterface $from, $msg) {
         $data = json_decode($msg, true);
         $userRank = $data["userRank"];
-        $messageType = $data["messageType"];
+        $messageType = isset($data["messageType"]) ? $data["messageType"] : null;
+        $currentGroupID  = 1;
         
         if($userRank === "user"){
-            
+            foreach($this->clients as $client){
+                $groupID  = $this->clients->getInfo()["groupID"];
+                if($currentGroupID == $groupID && $client != $from){
+                    $client->send(json_encode([
+                        "userRank" => "user",
+                        "itemsUpdate" => $data["itemsUpdate"]]
+                    ));
+                }
+            }
         }
 
         if($userRank === "admin" && $messageType === "command"){
@@ -48,7 +59,20 @@ class MyChat implements MessageComponentInterface {
                             $client->send(json_encode(["command" => "startIndividual"]));
                         }
                     }
-                    break;
+                break;
+                case "startGroup":
+                    foreach($this->clients as $client){
+                        if($client != $from){
+                            $response = array();
+                            $response["command"] = "startGroup";
+                            $items = json_decode(file_get_contents("http://127.0.0.1:8080/api/items"), true);
+                            shuffle($items);
+                            $response["items"] = $items;
+                            $client->send(json_encode($response));
+                        }
+
+                    }
+                break;
             }
         }
     }
@@ -72,3 +96,16 @@ class MyChat implements MessageComponentInterface {
     );
 
     $server->run();
+
+
+    // {
+    //     "userRank" : "admin",
+    //     "messageType" : "command",
+    //     "command" : "startIndividual"
+    // }
+
+    // {
+    //     "userRank" : "admin",
+    //     "messageType" : "command",
+    //     "command" : "startGroup"
+    // }

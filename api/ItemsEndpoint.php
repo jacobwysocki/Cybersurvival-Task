@@ -24,8 +24,17 @@ class ItemsEndpoint extends Endpoint {
                 return $results;
                 break;
             case 'admin':
-                return $results;
-                break;
+            case 'null':
+                $l = sizeof($this->uri);
+                switch($l){
+                    case 2:
+                        return $this->db->SELECT_ALL("items");
+                        break;
+                    case 3:
+                        return $this->db->SELECT_ONE("items", "itemID", $this->uri[3]);
+                        break;
+                    }
+            break;
         }
     }
 
