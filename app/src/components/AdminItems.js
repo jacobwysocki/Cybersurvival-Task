@@ -48,12 +48,25 @@ function AdminItems(props) {
     setEditingItem(index);
   }
   
+  const deleteItem = (itemID) => {
+    const filteredItems = items.filter((item) => item.itemID !== itemID);
+    setItems(filteredItems);
+    console.log(itemID);
 
-  function deleteItem(index) {
-    const newItems = [...items];
-    newItems.splice(index, 1);
-    setItems(newItems);
-  }
+    fetch("http://localhost/api/items/" + itemID,
+        {
+            method: 'DELETE',
+            headers: {"Authorization": "Bearer " + token}
+        })
+        .then(
+            (response) => response.json()
+        ).then(
+        data => setItems(data)
+    ).catch((err) => {
+        console.log(err.message);
+    });
+
+};
 
   return (
     <div>
@@ -81,11 +94,22 @@ function AdminItems(props) {
             <br />
             <br />
 
-            <ul>
+            {<ul>
+                {items.map((item) => (
+                  <li key={item.itemID}>
+                    <p>First Name: {item.itemString}</p>
+                    <p>Last Name: {item.sequenceNo}</p>
+                    <Button variant="danger" onClick={() => deleteItem(item.itemID)}>
+                      Delete
+                    </Button>
+                  </li>
+                ))}
+              </ul>}
+            {/* <ul>
               {items.map((item, index) => (
                 <li key={index}>
                   {item.itemString}
-
+                  {console.log(item.itemID)}
                   <Button
                     variant="dark"
                     onClick={() => editItem(index)}>
@@ -98,7 +122,7 @@ function AdminItems(props) {
                   </Button>
                 </li>
               ))}
-            </ul>
+            </ul> */}
           </div>
         </div>
       </div>
