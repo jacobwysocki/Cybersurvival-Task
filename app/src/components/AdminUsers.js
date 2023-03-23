@@ -32,15 +32,13 @@ function AdminUsers(props) {
 
     const [users, setUsers] = useState([]);
 
-    const encodedString = Buffer.from(
-        localStorage.getItem('username') + ":" + localStorage.getItem('password')
-    ).toString('base64');
+    const token = localStorage.getItem('token');
 
     useEffect( () => {
-        fetch("http://localhost:8080/api/users",
+        fetch("http://localhost/api/users",
             {
                 method: 'GET',
-                headers: new Headers( { "Authorization": "Bearer " +localStorage.getItem('token') })
+                headers: {"Authorization": "Bearer " + token}
             })
             .then(
                 (response) => response.json()
@@ -52,10 +50,6 @@ function AdminUsers(props) {
     }, []);
 
 
-    const handleSignOut = () => {
-        props.handleAuthenticated(false)
-        localStorage.removeItem('token')
-    }
 
     const handleUserType = (user) => {
         if (user.rankID === 2) {
@@ -72,7 +66,7 @@ function AdminUsers(props) {
         }
         else {
 
-            fetch('http://localhost:8080/api/register.php',
+            fetch('http://localhost/api/register.php',
                 {
                     method: 'POST',
                     body: JSON.stringify({
@@ -139,18 +133,32 @@ function AdminUsers(props) {
 
     }
 
+    const handleDeleteUser = (userID) => {
+        const filteredUsers = users.filter((user) => user.userID !== userID);
+        setUsers(filteredUsers);
+        console.log(userID);
+
+        fetch("http://localhost/api/users/" + userID,
+            {
+                method: 'DELETE',
+                headers: {"Authorization": "Bearer " + token}
+            })
+            .then(
+                (response) => response.json()
+            ).then(
+            data => setUsers(data)
+        ).catch((err) => {
+            console.log(err.message);
+        });
+
+    };
+
 
     return(
         <div>
             {props.authenticated &&
                 <div>
-                    <Button className="buttonSignOut"
-                            variant="dark"
-                            type="submit"
-                            onClick={handleSignOut}>
-                        Sign out
-                    </Button>
-
+                    <br/>
                     <h2>Add Users</h2>
                     <div className= "registerForm">
                         <Container>
@@ -214,20 +222,23 @@ function AdminUsers(props) {
                                     : null}
                                 {registered === true ?
                                     <Alert variant="success">
-                                        You have successfully registered.
+                                        Account successfully created.
                                     </Alert>
                                     : null}
+                                <div>
                                 <Button variant="dark"
                                         onClick={handleSubmit}
                                         disabled={!firstName || !lastName || !jobRole || !email || !password || !confirmPassword || !userType}>
-                                    Register
+                                    Create Account
                                 </Button>
+                                    <br/>
+                                </div>
 
 
                             </Form>
                         </Container>
                     </div>
-
+                    <br/>
                     <h2>Manage users</h2>
                     <Table striped bordered hover variant="dark">
                         <thead>
@@ -237,6 +248,7 @@ function AdminUsers(props) {
                             <th>Email</th>
                             <th>Job Role</th>
                             <th>User Type</th>
+                            <th>Delete User</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -247,10 +259,16 @@ function AdminUsers(props) {
                                 <td>{user.email}</td>
                                 <td>{user.jobRole}</td>
                                 <td>{handleUserType(user)}</td>
+                                <td>
+                                    <Button variant="danger" onClick={() => handleDeleteUser(user.userID)}>
+                                        Delete
+                                    </Button>
+                                </td>
                             </tr>
                         ))}
                         </tbody>
                     </Table>
+                    <br/>
                 </div>
             }
 

@@ -19,11 +19,8 @@ function Dashboard(props) {
 
     const handleSignOut = () => {
         props.handleAuthenticated(false)
-        localStorage.removeItem('token')
-    }
-
-    const handleClick = (path) => {
-        return <Navigate replace to={path} />;
+        localStorage.clear();
+        return <Navigate replace to="/login" />;
     }
 
 
@@ -38,12 +35,28 @@ function Dashboard(props) {
                         onClick={handleSignOut}>
                     Sign out
                 </Button>
+                <br/>
                 {localStorage.getItem('rank') == "admin" &&
                     <Button as={Link} to="/AdminUsers" className="button"
                     variant="dark"
                     type="submit">
                         Manage Users
                     </Button>}
+                {localStorage.getItem('rank') == "user" &&
+                    <Button as={Link} to="/ManageAccount" className="button"
+                            variant="dark"
+                            type="submit">
+                        Manage Account
+                    </Button>}
+                {localStorage.getItem('rank') == "admin" &&
+                    <Button as={Link} to="/AdminItems" className="button"
+                            variant="dark"
+                            type="submit">
+                        Manage Items
+                    </Button>
+                }
+                
+
                 <div>
                     <Button as={Link} to="/startExperiment" className="button"
                     variant="dark"

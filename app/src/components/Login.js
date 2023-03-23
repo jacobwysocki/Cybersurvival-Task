@@ -42,16 +42,19 @@ function Login(props) {
         ).toString('base64');
 
 
-        fetch("http://localhost:8080/api/auth",
+        fetch("http://localhost/api/auth",
             {
                 method: 'GET',
-                headers: new Headers( { "Authorization": "Basic " +encodedString })
+                headers:  { "Authorization": "Basic " +encodedString }
             })
             .then(
                 (response) => {
-                    return response.json()
-                }
-            )
+                    if (response.status !== 200) {
+                        setErrorMessage("Unauthorized access. Please log in again.");
+                    } else {
+                        return response.json();
+                    }
+                })
             .then(
                 (json) => {
                     if (json.message === "Successfully logged in") {
@@ -60,6 +63,7 @@ function Login(props) {
                         // localStorage.setItem('password', password);
                         localStorage.setItem('token', json.token);
                         localStorage.setItem('rank', json.rank);
+                        localStorage.setItem('userID', json.userID);
                     }
                     else if (json.message === "Invalid Credentials.") {
                         setErrorMessage("Invalid Username or Password")
@@ -68,7 +72,8 @@ function Login(props) {
             )
             .catch(
                 (e) => {
-                    console.log(e.message)
+                    console.log(e)
+                    setErrorMessage("An error occurred while logging in. Please try again later.");
                 }
             )
     }

@@ -14,7 +14,7 @@ function SecInfoPage(){
         <div className="container mt-5">
             <h1 className="text-center mb-5">Security Information</h1>
             <div>
-                <p> When using a web app, it is essential to
+                <p> When using this  web app, it is essential to
                     follow security best practices to protect your personal information and ensure a
                     safe online experience.
                     Here are some key security tips to keep in mind</p>

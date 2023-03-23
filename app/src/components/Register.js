@@ -9,6 +9,11 @@ import {json, Link, useNavigate} from "react-router-dom";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+
+
+
 
 /**
  * Register component.
@@ -37,7 +42,7 @@ function Register(props) {
         }
         else {
 
-            fetch('http://localhost:8080/api/register.php',
+            fetch('http://localhost/api/register.php',
                 {
                     method: 'POST',
                     body: JSON.stringify({
@@ -178,7 +183,13 @@ function Register(props) {
                 disabled={!firstName || !lastName || !jobRole || !email || !password || !confirmPassword || !userType}>
             Register
         </Button>
-
+            <div>
+                <Link to="/">
+                    <Button className="button mt-2" variant="secondary">
+                        <FontAwesomeIcon icon={faArrowLeft} />  Back to home
+                    </Button>
+                </Link>
+            </div>
 
         </Form>
     </Container>

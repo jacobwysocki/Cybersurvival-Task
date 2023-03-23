@@ -25,6 +25,13 @@ function HomePage() {
           type="submit">
           Register
         </Button>
+            <div>
+                <Link to="/secinfo">
+                    <Button className="button mt-2" variant="secondary">
+                        Security Information
+                    </Button>
+                </Link>
+            </div>
         </div>
     )
 }
