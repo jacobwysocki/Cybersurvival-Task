@@ -14,6 +14,7 @@ import Dashboard from "./components/Dashboard";
 import AdminUsers from "./components/AdminUsers";
 import GroupSelect from './components/GroupSelect';
 import GroupStage from './components/GroupStage';
+import ManageAccount from "./components/ManageAccount";
 
 function App() {
 
@@ -38,6 +39,7 @@ function App() {
           <Route path="/SecInfo" element={<SecInfoPage/>}/>
           <Route path="/dashboard" element={<Dashboard handleAuthenticated={setAuthenticated} authenticated={authenticated}/>}/>
           <Route path="/adminUsers" element={<AdminUsers handleAuthenticated={setAuthenticated} authenticated={authenticated}/>}/>
+          <Route path="/ManageAccount" element={<ManageAccount handleAuthenticated={setAuthenticated} authenticated={authenticated}/>}/>
           <Route path="/groupStage" element={<GroupStage/>}/>
         </Routes>
       </header>
