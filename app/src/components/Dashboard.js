@@ -41,6 +41,12 @@ function Dashboard(props) {
                     type="submit">
                         Manage Users
                     </Button>}
+                {localStorage.getItem('rank') == "user" &&
+                    <Button as={Link} to="/ManageAccount" className="button"
+                            variant="dark"
+                            type="submit">
+                        Manage Account
+                    </Button>}
                 {localStorage.getItem('rank') == "admin" &&
                     <Button as={Link} to="/AdminItems" className="button"
                             variant="dark"

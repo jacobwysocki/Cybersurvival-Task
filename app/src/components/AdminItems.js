@@ -10,7 +10,7 @@ function AdminItems(props) {
   const token = localStorage.getItem('token');
 
   useEffect(() => {
-    fetch("http://localhost:8888/api/items",
+    fetch("http://localhost/api/items",
             {
                 method: 'GET',
                 headers: {"Authorization": "Bearer " + token}

@@ -63,6 +63,7 @@ function Login(props) {
                         // localStorage.setItem('password', password);
                         localStorage.setItem('token', json.token);
                         localStorage.setItem('rank', json.rank);
+                        localStorage.setItem('userID', json.userID);
                     }
                     else if (json.message === "Invalid Credentials.") {
                         setErrorMessage("Invalid Username or Password")
