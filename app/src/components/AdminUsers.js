@@ -158,6 +158,7 @@ function AdminUsers(props) {
         <div>
             {props.authenticated &&
                 <div>
+                    <br/>
                     <h2>Add Users</h2>
                     <div className= "registerForm">
                         <Container>
@@ -221,20 +222,23 @@ function AdminUsers(props) {
                                     : null}
                                 {registered === true ?
                                     <Alert variant="success">
-                                        You have successfully registered.
+                                        Account successfully created.
                                     </Alert>
                                     : null}
+                                <div>
                                 <Button variant="dark"
                                         onClick={handleSubmit}
                                         disabled={!firstName || !lastName || !jobRole || !email || !password || !confirmPassword || !userType}>
-                                    Register
+                                    Create Account
                                 </Button>
+                                    <br/>
+                                </div>
 
 
                             </Form>
                         </Container>
                     </div>
-
+                    <br/>
                     <h2>Manage users</h2>
                     <Table striped bordered hover variant="dark">
                         <thead>
@@ -244,7 +248,7 @@ function AdminUsers(props) {
                             <th>Email</th>
                             <th>Job Role</th>
                             <th>User Type</th>
-                            <th></th> {/* new column for delete button */}
+                            <th>Delete User</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -264,6 +268,7 @@ function AdminUsers(props) {
                         ))}
                         </tbody>
                     </Table>
+                    <br/>
                 </div>
             }
 

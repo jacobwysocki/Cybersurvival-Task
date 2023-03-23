@@ -183,7 +183,7 @@ function Register(props) {
                 disabled={!firstName || !lastName || !jobRole || !email || !password || !confirmPassword || !userType}>
             Register
         </Button>
-            <div  className="d-flex flex-column justify-content-between min-vh-100">
+            <div>
                 <Link to="/">
                     <Button className="button mt-2" variant="secondary">
                         <FontAwesomeIcon icon={faArrowLeft} />  Back to home

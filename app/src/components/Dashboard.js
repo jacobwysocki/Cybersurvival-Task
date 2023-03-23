@@ -35,6 +35,7 @@ function Dashboard(props) {
                         onClick={handleSignOut}>
                     Sign out
                 </Button>
+                <br/>
                 {localStorage.getItem('rank') == "admin" &&
                     <Button as={Link} to="/AdminUsers" className="button"
                     variant="dark"
