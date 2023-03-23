@@ -40,7 +40,7 @@ function AdminUsers(props) {
         fetch("http://localhost:8080/api/users",
             {
                 method: 'GET',
-                headers: new Headers( { "Authorization": "Basic " +encodedString })
+                headers: new Headers( { "Authorization": "Bearer " +localStorage.getItem('token') })
             })
             .then(
                 (response) => response.json()

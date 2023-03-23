@@ -1,12 +1,18 @@
 {
     "null" : {
+        "~/$~": {
             "methods" : ["GET"],
             "className" : "BaseEndpoint"
         },
         "~/auth~":{
             "methods" : ["POST"],
             "className" : "EndpointAuth"
-        },
+        },       
+        "~/items~":{
+            "methods" : ["GET"],
+            "className" : "ItemsEndpoint"
+        }
+    },
     "user" : {
         "~/$~": {
             "methods" : ["GET"],

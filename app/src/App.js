@@ -13,6 +13,7 @@ import SecInfoPage from "./components/SecInfo";
 import Dashboard from "./components/Dashboard";
 import AdminUsers from "./components/AdminUsers";
 import GroupSelect from './components/GroupSelect';
+import GroupStage from './components/GroupStage';
 
 function App() {
 
@@ -31,11 +32,13 @@ function App() {
           <Route path="/login" element={<Login handleAuthenticated={setAuthenticated} authenticated={authenticated}/>}/>
           <Route path="/register" element={<Register handleAuthenticated={setAuthenticated}/>}/>
           {/* <Route path="*" element={<p>Not Found</p>}/> */}
+          <Route path="/individualStage" element={<IndividualStage/>}/>
           <Route path="/startExperiment" element={<GroupSelect/>}/>
           <Route path="/AdminItems" element={<AdminItems/>}/>
           <Route path="/SecInfo" element={<SecInfoPage/>}/>
           <Route path="/dashboard" element={<Dashboard handleAuthenticated={setAuthenticated} authenticated={authenticated}/>}/>
           <Route path="/adminUsers" element={<AdminUsers handleAuthenticated={setAuthenticated} authenticated={authenticated}/>}/>
+          <Route path="/groupStage" element={<GroupStage/>}/>
         </Routes>
       </header>
     </div>
