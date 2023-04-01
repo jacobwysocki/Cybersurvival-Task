@@ -9,6 +9,12 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Alert from "react-bootstrap/Alert";
 
+/**
+ * Manage Account component for logged in participants.
+ *
+ * @author Jakub Wysocki
+ */
+
 function ManageAccount(props) {
 
     const [firstName, setFirstName] = useState(null);
@@ -36,7 +42,7 @@ function ManageAccount(props) {
     const token = localStorage.getItem('token');
     console.log(currentUserID);
     useEffect( () => {
-        fetch("http://localhost/api/users/" + currentUserID,
+        fetch("http://localhost:8888/api/users/" + currentUserID,
             {
                 method: 'GET',
                 headers: {"Authorization": "Bearer " + token}
@@ -66,7 +72,7 @@ function ManageAccount(props) {
                 "jobRole": jobRole || currentUser.jobRole,
             };
 
-            fetch('http://localhost/api/users/' + currentUserID,
+            fetch('http://localhost:8888/api/users/' + currentUserID,
                 {
                 method: 'PUT',
                 headers: { "Authorization": "Bearer " + token },

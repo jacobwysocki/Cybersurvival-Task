@@ -9,6 +9,12 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Alert from "react-bootstrap/Alert";
 
+/**
+ * User Management Component for Admins
+ *
+ * @author Jakub Wysocki
+ */
+
 function AdminUsers(props) {
 
     const [firstName, setFirstName] = useState(null);
@@ -35,7 +41,7 @@ function AdminUsers(props) {
     const token = localStorage.getItem('token');
 
     useEffect( () => {
-        fetch("http://localhost/api/users",
+        fetch("http://localhost:8888/api/users",
             {
                 method: 'GET',
                 headers: {"Authorization": "Bearer " + token}
@@ -66,7 +72,7 @@ function AdminUsers(props) {
         }
         else {
 
-            fetch('http://localhost/api/register.php',
+            fetch('http://localhost:8888/api/register.php',
                 {
                     method: 'POST',
                     body: JSON.stringify({
@@ -138,7 +144,7 @@ function AdminUsers(props) {
         setUsers(filteredUsers);
         console.log(userID);
 
-        fetch("http://localhost/api/users/" + userID,
+        fetch("http://localhost:8888/api/users/" + userID,
             {
                 method: 'DELETE',
                 headers: {"Authorization": "Bearer " + token}

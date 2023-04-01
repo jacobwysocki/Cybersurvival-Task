@@ -12,9 +12,6 @@ import Col from 'react-bootstrap/Col';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
-
-
-
 /**
  * Register component.
  * 
@@ -42,7 +39,7 @@ function Register(props) {
         }
         else {
 
-            fetch('http://localhost/api/register.php',
+            fetch('http://localhost:8888/api/register.php',
                 {
                     method: 'POST',
                     body: JSON.stringify({
@@ -64,7 +61,9 @@ function Register(props) {
                     console.log(json);
                     if (json.message === "You have successfully registered.") {
                         setRegistered(true);
-                        navigate('/login');
+                        setTimeout(() => {
+                            navigate('/login');
+                        }, 2000);
                     }
                     else if (json.message === "Invalid Email Address!") {
                         setErrorMessage("Invalid Email address!");
