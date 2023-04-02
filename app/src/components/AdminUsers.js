@@ -72,7 +72,7 @@ function AdminUsers(props) {
         }
         else {
 
-            fetch('http://localhost:8888/api/register.php',
+            fetch('http://localhost:8080/api/register.php',
                 {
                     method: 'POST',
                     body: JSON.stringify({
@@ -144,7 +144,7 @@ function AdminUsers(props) {
         setUsers(filteredUsers);
         console.log(userID);
 
-        fetch("http://localhost:8888/api/users/" + userID,
+        fetch("http://localhost:8080/api/users/" + userID,
             {
                 method: 'DELETE',
                 headers: {"Authorization": "Bearer " + token}
