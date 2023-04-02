@@ -2,6 +2,13 @@ import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
+/**
+  * Item Management Component for Admins
+  *
+  * @author Gabriela Piatek
+  */
+
+
 function AdminItems(props) {
   const [items, setItems] = useState([]);
   const [itemInput, setItemInput] = useState('');
