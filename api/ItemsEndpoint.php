@@ -3,7 +3,12 @@ class ItemsEndpoint extends Endpoint {
     public function __construct(Database $db, Request $request) {
       parent::__construct($db, $request);
     }
-  
+  /**
+  * Item Endpoint 
+  *
+  * @author Gabriela Piatek
+  */
+
     public function GET() {
         $rank = "null";
 
