@@ -59,13 +59,11 @@ function Login(props) {
                 (json) => {
                     if (json.message === "Successfully logged in") {
                         props.handleAuthenticated(true);
-                        // localStorage.setItem('username', username);
-                        // localStorage.setItem('password', password);
                         localStorage.setItem('token', json.token);
                         localStorage.setItem('rank', json.rank);
                         localStorage.setItem('userID', json.userID);
                     }
-                    else if (json.message === "Invalid Credentials.") {
+                    else if (json.message !== "Successfully logged in") {
                         setErrorMessage("Invalid Username or Password")
                     }
                 }

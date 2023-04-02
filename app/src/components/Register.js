@@ -74,6 +74,12 @@ function Register(props) {
                     else if (json.message === "Your password must be at least 8 characters long!"){
                         setErrorMessage("Your password must be at least 8 characters long!");
                     }
+                    else if (json.message === "Your firstName must be at least 1 character long!"){
+                        setErrorMessage("Your firstName must be at least 1 character long!");
+                    }
+                    else if (json.message === "Your lastName must be at least 1 character long!"){
+                        setErrorMessage("Your lastName must be at least 1 character long!");
+                    }
                 }
                 )
                 .catch((error) => {

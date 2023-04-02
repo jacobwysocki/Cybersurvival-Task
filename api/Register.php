@@ -19,7 +19,7 @@ function msg($success, $status, $message, $extra = [])
     , $extra);
 }
 
-// DATA FORM REQUEST
+// data form request
 $data = json_decode(file_get_contents("php://input"));
 $returnData = [];
 
@@ -45,7 +45,6 @@ elseif (
     $fields = ['fields' => ['firstName', 'lastName', 'email', 'password', 'jobRole', 'rankID']];
     $returnData = msg(0, 422, 'Please Fill in all Required Fields!', $fields);
 
-// IF THERE ARE NO EMPTY FIELDS THEN-
 else :
 
     $firstName = trim($data->firstName);
