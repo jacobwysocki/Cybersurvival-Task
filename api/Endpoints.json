@@ -5,7 +5,7 @@
             "className" : "BaseEndpoint"
         },
         "~/auth~":{
-            "methods" : ["POST"],
+            "methods" : ["POST", "OPTIONS"],
             "className" : "EndpointAuth"
         },       
         "~/items~":{

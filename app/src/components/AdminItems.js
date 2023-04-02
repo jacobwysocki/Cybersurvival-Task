@@ -18,7 +18,7 @@ function AdminItems(props) {
   const token = localStorage.getItem('token');
 
   useEffect(() => {
-    fetch("http://localhost:8888/api/items",
+    fetch("http://localhost:8080/api/items",
             {
                 method: 'GET',
                 headers: {"Authorization": "Bearer " + token}
@@ -106,7 +106,7 @@ function AdminItems(props) {
     setItems(filteredItems);
     console.log(itemID);
 
-    fetch("http://localhost:8888/api/items/" + itemID,
+    fetch("http://localhost:8080/api/items/" + itemID,
         {
             method: 'DELETE',
             headers: {"Authorization": "Bearer " + token}

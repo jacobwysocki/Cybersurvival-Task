@@ -42,7 +42,7 @@ function Login(props) {
         ).toString('base64');
 
 
-        fetch("http://localhost:8888/api/auth",
+        fetch("http://localhost:8080/api/auth",
             {
                 method: 'GET',
                 headers:  { "Authorization": "Basic " +encodedString }

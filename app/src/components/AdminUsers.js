@@ -41,7 +41,7 @@ function AdminUsers(props) {
     const token = localStorage.getItem('token');
 
     useEffect( () => {
-        fetch("http://localhost:8888/api/users",
+        fetch("http://localhost:8080/api/users",
             {
                 method: 'GET',
                 headers: {"Authorization": "Bearer " + token}

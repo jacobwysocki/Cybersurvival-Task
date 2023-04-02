@@ -42,7 +42,7 @@ function ManageAccount(props) {
     const token = localStorage.getItem('token');
     console.log(currentUserID);
     useEffect( () => {
-        fetch("http://localhost:8888/api/users/" + currentUserID,
+        fetch("http://localhost:8080/api/users/" + currentUserID,
             {
                 method: 'GET',
                 headers: {"Authorization": "Bearer " + token}
@@ -72,7 +72,7 @@ function ManageAccount(props) {
                 "jobRole": jobRole || currentUser.jobRole,
             };
 
-            fetch('http://localhost:8888/api/users/' + currentUserID,
+            fetch('http://localhost:8080/api/users/' + currentUserID,
                 {
                 method: 'PUT',
                 headers: { "Authorization": "Bearer " + token },
